@@ -49,6 +49,7 @@
                     android:id="@+id/AddNewBookFAV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
                     android:clickable="true">
@@ -71,6 +72,7 @@
                     android:id="@+id/AddNewtrackkFAV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
                     android:clickable="true">
@@ -79,7 +81,7 @@
                 <TextView style="@style/mainOptionVoices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_new_book"
+                    android:text="@string/add_new_track"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -93,6 +95,7 @@
                     android:id="@+id/AddNewQuoterFAV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
                     android:clickable="true">
@@ -101,7 +104,7 @@
                 <TextView style="@style/mainOptionVoices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_new_book"
+                    android:text="@string/add_new_quote"
                     android:textAlignment="center" />
             </LinearLayout>
 
