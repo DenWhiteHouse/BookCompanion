@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="mainOptionVoices">
+        <item name="android:textSize">@dimen/main_menu_options</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">@dimen/padding_medium</item>
+    </style>
+
 </resources>

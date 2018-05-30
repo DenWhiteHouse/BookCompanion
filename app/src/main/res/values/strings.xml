@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Book Companion</string>
+    <string name="current_raedings_message">you are currently reading</string>
+    <string name="add_new_book">Add a new Book</string>
+    <string name="add_new_quote">Add a new Reading Track</string>
+    <string name="add_new_track">Add a new Quote</string>
 </resources>

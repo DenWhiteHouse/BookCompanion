@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="mainOptionVoices">
+        <item name="android:textSize">@dimen/main_menu_options</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingLeft">@dimen/padding_medium</item>
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/padding_medium"
+        android:text="@string/add_new_book"
+        android:textAlignment="center"
+    </style>
+</resources>
