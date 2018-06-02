@@ -4,8 +4,11 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface BooksInterface {
-    @GET("{title}")
-    public Call<ArrayList<Book>> getBooks();
+    @GET("volumes?q=kitchen")
+    public Call<Book> getBooks(
+            //@Query("q") String booktitle
+    );
 }

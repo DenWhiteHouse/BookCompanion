@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class RetrofitClient {
-    private static final String ROOT_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+    static String ROOT_URL = "https://www.googleapis.com/books/v1/";
     static BooksInterface BooksInterface;
 
     public static BooksInterface getRetrofitInstance() {

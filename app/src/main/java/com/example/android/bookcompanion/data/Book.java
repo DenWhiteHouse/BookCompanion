@@ -10,12 +10,6 @@ import com.google.gson.annotations.SerializedName;
 public class Book implements Parcelable
 {
 
-    @SerializedName("kind")
-    @Expose
-    private String kind;
-    @SerializedName("totalItems")
-    @Expose
-    private int totalItems;
     @SerializedName("items")
     @Expose
     private List<Item> items = null;
@@ -37,39 +31,12 @@ public class Book implements Parcelable
             ;
 
     protected Book(Parcel in) {
-        this.kind = ((String) in.readValue((String.class.getClassLoader())));
-        this.totalItems = ((int) in.readValue((int.class.getClassLoader())));
         in.readList(this.items, (com.example.android.bookcompanion.data.Item.class.getClassLoader()));
     }
 
     public Book() {
     }
 
-    public String getKind() {
-        return kind;
-    }
-
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
-
-    public Book withKind(String kind) {
-        this.kind = kind;
-        return this;
-    }
-
-    public int getTotalItems() {
-        return totalItems;
-    }
-
-    public void setTotalItems(int totalItems) {
-        this.totalItems = totalItems;
-    }
-
-    public Book withTotalItems(int totalItems) {
-        this.totalItems = totalItems;
-        return this;
-    }
 
     public List<Item> getItems() {
         return items;
@@ -85,8 +52,6 @@ public class Book implements Parcelable
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(kind);
-        dest.writeValue(totalItems);
         dest.writeList(items);
     }
 
