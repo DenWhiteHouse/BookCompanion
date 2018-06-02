@@ -17,11 +17,14 @@ import java.util.List;
 
 public class BookAdapter extends ArrayAdapter<Book> {
     ArrayList<Book> mBooksList;
+    List<Item> mItemList;
+    List<VolumeInfo> mVolumeInfoList;
     Context mContext;
 
     public BookAdapter(Context context) {
         super(context,0);
         mContext=context;
+        mBooksList=new ArrayList<>();
     }
 
     public void setBook(ArrayList books){
@@ -32,7 +35,6 @@ public class BookAdapter extends ArrayAdapter<Book> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.book_results_fragment, parent, false);
         }
         Book currentBook = getItem(position);
 

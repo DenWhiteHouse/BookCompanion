@@ -1,5 +1,5 @@
-package com.example.android.bookcompanion.fragments;
 
+/*
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,8 +28,8 @@ public class BookResultsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mainView = inflater.inflate(R.layout.book_results_fragment, container, false);
+    public voidzeateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //ew mainView = inflater.inflate(R.layout.activity_main ,false);
         final BookAdapter bookAdapter = new BookAdapter(getActivity().getApplicationContext());
 
         //Getting the JSON Object with Retrofit
@@ -52,6 +52,7 @@ public class BookResultsFragment extends Fragment {
             }
         });
         //return the adapted view
-        return mainView;
     }
 }
+
+*/
