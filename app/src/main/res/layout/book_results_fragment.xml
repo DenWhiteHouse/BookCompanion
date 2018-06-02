@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/BookResultsScrollFView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_medium"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/bookImage"
+            android:layout_height="@dimen/bookImage" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_small"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/book_title" />
+            <TextView
+                android:id="@+id/bookTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Book Title" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/book_author" />
+            <TextView
+                android:id="@+id/bookAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Book Author" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/number_of_pages" />
+            <TextView
+                android:id="@+id/bookPages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Number of pages" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_medium"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Book Description"/>
+    </LinearLayout>
+  </LinearLayout>
+
+</ScrollView>

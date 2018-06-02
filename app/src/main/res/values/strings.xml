@@ -2,6 +2,20 @@
     <string name="app_name">Book Companion</string>
     <string name="current_raedings_message">you are currently reading</string>
     <string name="add_new_book">Add a new Book</string>
-    <string name="add_new_quote">Add a new Reading Track</string>
+    <string name="add_new_quote">Add a new Track</string>
     <string name="add_new_track">Add a new Quote</string>
+
+    <string name="add_book_activity_title">Add Book</string>
+
+    <string name="add_new_book_message">Search a book</string>
+    <string name="search_book_hinte">Insert your book title</string>
+    <string name="book_title">Title</string>
+    <string name="book_author">Author</string>
+    <string name="number_of_pages">Number of pages</string>
+    <string name="search_book">Search</string>
+    <string name="warning_missing_title">Please insert a title</string>
+
+    <string name="FETCHBOOKS">FETCHBOOKS</string>
+
+
 </resources>

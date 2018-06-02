@@ -46,7 +46,7 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/AddNewBookFAV"
+                    android:id="@+id/AddNewBookFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_chevron_right_white"
@@ -58,8 +58,7 @@
                 <TextView style="@style/mainOptionVoices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_new_book"
-                    android:textAlignment="center" />
+                    android:text="@string/add_new_book" />
             </LinearLayout>
 
 
@@ -69,7 +68,7 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/AddNewtrackkFAV"
+                    android:id="@+id/AddNewTrackFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_chevron_right_white"
@@ -81,8 +80,7 @@
                 <TextView style="@style/mainOptionVoices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_new_track"
-                    android:textAlignment="center" />
+                    android:text="@string/add_new_track" />
             </LinearLayout>
 
 
@@ -92,7 +90,7 @@
                 android:orientation="horizontal">
 
                 <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/AddNewQuoterFAV"
+                    android:id="@+id/AddNewQuoteFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_chevron_right_white"
@@ -105,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_new_quote"
-                    android:textAlignment="center" />
+                    />
             </LinearLayout>
 
         </LinearLayout>
