@@ -50,6 +50,7 @@ public class AddBook extends AppCompatActivity {
                 }
                 else{
                     getBookJSON();
+
                 }
             }
         });
@@ -79,7 +80,7 @@ public class AddBook extends AppCompatActivity {
         //This version will only use the first risult of the API
         mBookTitleTV.setText(books.getItems().get(0).getVolumeInfo().getTitle());
         mBookAuthorTV.setText(books.getItems().get(0).getVolumeInfo().getAuthors().get(0));
-        mBookPageTV.setText(books.getItems().get(0).getVolumeInfo().getPageCount());
+        mBookPageTV.setText(String.valueOf(books.getItems().get(0).getVolumeInfo().getPageCount()));
 
     }
 }
