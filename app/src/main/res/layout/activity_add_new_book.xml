@@ -50,6 +50,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/bookImage"
                         android:layout_width="@dimen/bookImage"
                         android:layout_height="@dimen/bookImage"
                         android:contentDescription="bookCover" />

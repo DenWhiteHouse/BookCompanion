@@ -7,8 +7,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface BooksInterface {
-    @GET("volumes?q=kitchen")
+    @GET("volumes")
     public Call<Book> getBooks(
-            //@Query("q") String booktitle
+            @Query("q") String booktitle
     );
 }

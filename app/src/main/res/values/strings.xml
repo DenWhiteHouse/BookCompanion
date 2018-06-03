@@ -14,6 +14,8 @@
     <string name="number_of_pages">Number of pages</string>
     <string name="search_book">Search</string>
     <string name="warning_missing_title">Please insert a title</string>
+    <string name="warning_title_notFound">Title not found, Try Again.</string>
+    <string name="error_Retrofit">Error while calling the service</string>
 
     <string name="FETCHBOOKS">FETCHBOOKS</string>
 
