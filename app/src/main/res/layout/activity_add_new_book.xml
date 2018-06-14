@@ -32,22 +32,22 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/search_book"/>
 
-    <LinearLayout
-        android:visibility="invisible"
-        android:id="@+id/BookResultsView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/BookResultsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/padding_medium"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_medium">
 
                     <ImageView
                         android:id="@+id/bookImage"
@@ -58,35 +58,40 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingTop="@dimen/padding_small"
+                        android:orientation="vertical"
                         android:paddingLeft="@dimen/padding_small"
-                        android:orientation="vertical">
+                        android:paddingTop="@dimen/padding_small">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="@string/book_title" />
+                            android:text="@string/book_title"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/bookTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="Book Title" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="@string/book_author" />
+                            android:text="@string/book_author"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/bookAuthor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="Book Author" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="@string/number_of_pages" />
+                            android:text="@string/number_of_pages"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/bookPages"
                             android:layout_width="wrap_content"
@@ -94,17 +99,21 @@
                             tools:text="Number of pages" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_medium"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="@dimen/padding_medium">
+
+                    <Button
+                        android:id="@+id/saveBookButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Book Description"/>
+                        android:text="@string/Save_book" />
                 </LinearLayout>
             </LinearLayout>
-    </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

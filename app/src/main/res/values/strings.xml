@@ -19,5 +19,9 @@
 
     <string name="FETCHBOOKS">FETCHBOOKS</string>
 
+    <string name="UNKNOWN">unknonw</string>
+    <string name="Save_book">save in my library</string>
+    <string name="my_library">My Library</string>
+
 
 </resources>

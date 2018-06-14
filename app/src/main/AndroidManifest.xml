@@ -3,6 +3,8 @@
     package="com.example.android.bookcompanion">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +27,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.bookcompanion.data.AddBook"/>
         </activity>
+
+        <provider
+            android:name=".database.BookProvider"
+            android:authorities="com.example.android.bookcompanion.books"
+            android:exported="false" />
     </application>
 
 </manifest>
