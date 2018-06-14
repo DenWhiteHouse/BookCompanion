@@ -23,6 +23,7 @@ public class BookContract {
         // Primary Key
         public final static String _ID = BaseColumns._ID;
         //Book Info
+        public final static String COL_BOOK_IMAGE = "image";
         public final static String COL_BOOK_NAME = "name";
         public final static String COL_BOOK_AUTH = "author";
         public final static String COL_BOOK_PAGES = "pages";

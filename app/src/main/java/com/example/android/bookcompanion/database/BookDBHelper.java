@@ -19,6 +19,7 @@ public class BookDBHelper extends SQLiteOpenHelper {
         // Create a String that contains the SQL statement to create the fruits table
         String SQL_CREATE_FRUITS_TABLE = "CREATE TABLE " + BookContract.BookEntry.TABLE_NAME + " ("
                 + BookContract.BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + BookContract.BookEntry.COL_BOOK_IMAGE + " TEXT NOT NULL, "
                 + BookContract.BookEntry.COL_BOOK_NAME + " TEXT NOT NULL, "
                 + BookContract.BookEntry.COL_BOOK_AUTH + " TEXT NOT NULL, "
                 + BookContract.BookEntry.COL_BOOK_PAGES + " INTEGER NOT NULL, "

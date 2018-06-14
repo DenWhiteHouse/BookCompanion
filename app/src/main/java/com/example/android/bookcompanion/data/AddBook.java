@@ -1,5 +1,6 @@
 package com.example.android.bookcompanion.data;
 
+import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.bookcompanion.R;
+import com.example.android.bookcompanion.database.BookContract;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import retrofit2.Response;
 
 public class AddBook extends AppCompatActivity {
     private String mBookTitle;
+    private String mImage,mTitle,mAuthor,mPages;
     Book books;
     @BindView(R.id.bookTitleInput) EditText mEditText;
     @BindView(R.id.search_book_button) Button mSearchButton;
@@ -35,6 +38,7 @@ public class AddBook extends AppCompatActivity {
     @BindView(R.id.bookAuthor) TextView mBookAuthorTV;
     @BindView(R.id.bookPages) TextView mBookPageTV;
     @BindView(R.id.bookImage) ImageView mBookImage;
+    @BindView(R.id.saveBookButton) Button mSaveBookButton;
 
     public AddBook(){
     }
@@ -56,6 +60,18 @@ public class AddBook extends AppCompatActivity {
                 else{
                     getBookJSON();
                 }
+            }
+        });
+
+        mSaveBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContentValues values = new ContentValues();
+                values.put(BookContract.BookEntry.COL_BOOK_IMAGE,mImage);
+                values.put(BookContract.BookEntry.COL_BOOK_NAME,mTitle);
+                values.put(BookContract.BookEntry.COL_BOOK_AUTH,mAuthor);
+                values.put(BookContract.BookEntry.COL_BOOK_PAGES,mPages);
+                Uri newUri = getContentResolver().insert(BookContract.BookEntry.CONTENT_URI, values);
             }
         });
     }
@@ -92,27 +108,25 @@ public class AddBook extends AppCompatActivity {
     }
 
     public void setBookInfo() {
-        //This version will only use the first item result of the API
-        String checkString;
 
-        checkString = books.getItems().get(0).getVolumeInfo().getTitle();
-        if (!checkString.isEmpty()) {
-            mBookTitleTV.setText(checkString);
+        mTitle = books.getItems().get(0).getVolumeInfo().getTitle();
+        if (!mTitle.isEmpty()) {
+            mBookTitleTV.setText(mTitle);
         }
         if (books.getItems().get(0).getVolumeInfo().getAuthors() != null){
-        checkString = books.getItems().get(0).getVolumeInfo().getAuthors().get(0);
-        if (!checkString.isEmpty()) {
-            mBookAuthorTV.setText(checkString);
+        mAuthor = books.getItems().get(0).getVolumeInfo().getAuthors().get(0);
+        if (!mAuthor.isEmpty()) {
+            mBookAuthorTV.setText(mAuthor);
         }
     }
-        checkString=String.valueOf(books.getItems().get(0).getVolumeInfo().getPageCount());
-        if(!checkString.isEmpty()) {
-            mBookPageTV.setText(checkString);
+        mPages=String.valueOf(books.getItems().get(0).getVolumeInfo().getPageCount());
+        if(!mPages.isEmpty()) {
+            mBookPageTV.setText(mPages);
         }
         if (books.getItems().get(0).getVolumeInfo().getImageLinks() != null){
-        String imageUrl = books.getItems().get(0).getVolumeInfo().getImageLinks().getThumbnail();
-        if(!imageUrl.isEmpty()) {
-            Uri builtUri = Uri.parse(imageUrl).buildUpon().build();
+        mImage = books.getItems().get(0).getVolumeInfo().getImageLinks().getThumbnail();
+        if(!mImage.isEmpty()) {
+            Uri builtUri = Uri.parse(mImage).buildUpon().build();
             Picasso.with(getApplicationContext()).load(builtUri).into(mBookImage);
         }
     }

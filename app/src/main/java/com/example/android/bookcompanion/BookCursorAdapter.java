@@ -12,11 +12,11 @@ import com.example.android.bookcompanion.database.BookContract;
 
 public class BookCursorAdapter extends CursorAdapter {
 
-    private MainActivity activity = new MainActivity();
+    private Context mContext;
 
-    public BookCursorAdapter(MainActivity context, Cursor c) {
+    public BookCursorAdapter(Context context, Cursor c) {
         super(context, c);
-        this.activity = context;
+        mContext = context;
     }
 
     @Override

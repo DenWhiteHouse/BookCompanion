@@ -28,6 +28,14 @@
                 android:value="com.example.android.bookcompanion.data.AddBook"/>
         </activity>
 
+        <activity
+            android:name=".MyLibrary"
+            android:label="@string/my_library">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bookcompanion.MyLibrary"/>
+        </activity>
+
         <provider
             android:name=".database.BookProvider"
             android:authorities="com.example.android.bookcompanion.books"

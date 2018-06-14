@@ -1,6 +1,9 @@
 package com.example.android.bookcompanion;
 
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +15,9 @@ import android.widget.Toast;
 
 import com.example.android.bookcompanion.data.AddBook;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     FloatingActionButton mAddBookFAB,mAddTrackFAB,mAddQuoteFAB;
+    private static final int BOOK_LOADER = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.my_library:
-                Toast.makeText(this, "My Library", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,MyLibrary.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
