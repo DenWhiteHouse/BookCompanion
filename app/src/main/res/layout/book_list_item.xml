@@ -24,34 +24,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/book_title"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/bookTitleLibrary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 tools:text="Book Title" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/book_author"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/bookAuthorLibrary"
                 android:layout_width="wrap_content"
+                android:textColor="@android:color/black"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/number_of_pages"
+                android:textColor="@android:color/black"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/bookPagesLibrary"
                 android:layout_width="wrap_content"
+                android:textColor="@android:color/black"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ListView;
 
 import com.example.android.bookcompanion.data.Book;
 import com.example.android.bookcompanion.database.BookContract;
@@ -22,23 +23,15 @@ public class MyLibrary extends AppCompatActivity implements
 
     private static final int BOOK_LOADER = 0;
     BookCursorAdapter mCursorAdapter;
-    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mylibrary_activity);
-        mRecyclerView = findViewById(R.id.myLibrary_RecView);
-        final List<Book> reviewsFields = new ArrayList<>();
+        final ListView booksListView = (ListView) findViewById(R.id.list);
         mCursorAdapter = new BookCursorAdapter(getApplicationContext(), null);
-        mRecyclerView.setLayoutManager( new LinearLayoutManager(getApplicationContext()));
-
-        if (savedInstanceState == null) {
-           //TODO: MANAGE BUNDLE
-        }
-        else{
-            getLoaderManager().initLoader(BOOK_LOADER, null, this);
-        }
+        booksListView.setAdapter(mCursorAdapter);
+        getLoaderManager().initLoader(BOOK_LOADER, null, this);
     }
 
     @Override

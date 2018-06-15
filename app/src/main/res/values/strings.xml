@@ -22,6 +22,7 @@
     <string name="UNKNOWN">unknonw</string>
     <string name="Save_book">save in my library</string>
     <string name="my_library">My Library</string>
+    <string name="book_saved">Book Saved</string>
 
 
 </resources>
