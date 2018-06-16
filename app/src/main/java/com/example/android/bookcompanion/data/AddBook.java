@@ -3,6 +3,7 @@ package com.example.android.bookcompanion.data;
 import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,6 +31,7 @@ import retrofit2.Response;
 public class AddBook extends AppCompatActivity {
     private String mBookTitle;
     private String mImage,mTitle,mAuthor,mPages;
+    private String bookbundle = "book";
     Book books;
     @BindView(R.id.bookTitleInput) EditText mEditText;
     @BindView(R.id.search_book_button) Button mSearchButton;
@@ -44,11 +46,18 @@ public class AddBook extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        // TODO: 03/06/2018 BUNDLE FOR BOOKS RESULTS 
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_book);
         ButterKnife.bind(this);
+
+        if (savedInstanceState != null) {
+            books= savedInstanceState.getParcelable(bookbundle);
+            if(books != null) {
+                setBookInfo();
+                resultsView.setVisibility(View.VISIBLE);
+            }
+        }
 
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,4 +141,14 @@ public class AddBook extends AppCompatActivity {
         }
     }
     }
-}
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //Check if the user has already used the research function
+        if(books != null){
+            outState.putParcelable(bookbundle,books);
+            super.onSaveInstanceState(outState);
+        }
+    }
+    }
