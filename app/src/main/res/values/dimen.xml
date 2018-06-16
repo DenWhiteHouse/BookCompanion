@@ -7,4 +7,5 @@
     <dimen name="padding_large">32dp</dimen>
 
     <dimen name="bookImage">150dp</dimen>
+    <dimen name="readin_track_info">20sp</dimen>
 </resources>

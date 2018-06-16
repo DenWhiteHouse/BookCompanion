@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padding_large"
+        android:paddingTop="@dimen/padding_large"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_readingTrack"
+            android:textSize="@dimen/readin_track_info"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/BookTitleReadingtrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/title_readingTrack" />
+
+        <EditText
+            android:id="@+id/LocationReadingtrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location_readingTrack" />
+
+        <EditText
+            android:id="@+id/DateReadingTrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/date_readingTrack" />
+
+        <EditText
+            android:id="@+id/PagesReadingTrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/Page_readingTrack" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
+
+            <Button
+                android:id="@+id/saveBookButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_readingTrack" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
