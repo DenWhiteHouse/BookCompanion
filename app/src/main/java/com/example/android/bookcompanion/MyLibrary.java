@@ -9,7 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.bookcompanion.data.Book;
 import com.example.android.bookcompanion.database.BookContract;
@@ -32,6 +35,15 @@ public class MyLibrary extends AppCompatActivity implements
         mCursorAdapter = new BookCursorAdapter(getApplicationContext(), null);
         booksListView.setAdapter(mCursorAdapter);
         getLoaderManager().initLoader(BOOK_LOADER, null, this);
+        booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Cursor cursor = mCursorAdapter.getCursor();
+                cursor.moveToPosition(i);
+                String title = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_NAME));
+                Toast.makeText(getApplicationContext(),"prova " + title,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
