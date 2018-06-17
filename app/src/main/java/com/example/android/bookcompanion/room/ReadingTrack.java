@@ -30,11 +30,11 @@ public class ReadingTrack {
         this.uid = uid;
     }
 
-    public String getTitle() {
+    public String getBookTitle() {
         return bookTitle;
     }
 
-    public void setTitle(String title) {
+    public void setBookTitle(String title) {
         this.bookTitle = title;
     }
 
