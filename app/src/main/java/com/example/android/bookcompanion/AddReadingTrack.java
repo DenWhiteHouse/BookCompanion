@@ -44,7 +44,7 @@ public class AddReadingTrack extends AppCompatActivity {
                 mReadingTrack.setDate(mDate.getText().toString());
                 mReadingTrack.setLocation(mLocation.getText().toString());
                 mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
-               // readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().insertReadingTrack(mReadingTrack);
+                readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().insertReadingTrack(mReadingTrack);
                 Toast.makeText(AddReadingTrack.this, R.string.reading_track_saved, Toast.LENGTH_SHORT).show();
             }
         });
