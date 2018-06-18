@@ -33,12 +33,14 @@
 
         <EditText
             android:id="@+id/DateReadingTrack"
+            android:inputType="date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/date_readingTrack" />
 
         <EditText
             android:id="@+id/PagesReadingTrack"
+            android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/Page_readingTrack" />

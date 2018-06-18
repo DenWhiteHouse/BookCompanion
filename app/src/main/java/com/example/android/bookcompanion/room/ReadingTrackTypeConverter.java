@@ -12,7 +12,7 @@ public class ReadingTrackTypeConverter {
         }
 
         @TypeConverter
-        public static Long toLong(Date value) {
+        public static Long toTimeStamp(Date value) {
             return value == null ? null : value.getTime();
         }
     }

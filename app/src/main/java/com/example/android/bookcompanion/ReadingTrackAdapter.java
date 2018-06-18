@@ -8,11 +8,17 @@ import android.widget.TextView;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapter.ReadingTrackViewHolder> {
 
     private final List<ReadingTrack> list;
+    // Constant for date format
+    private static final String DATE_FORMAT = "dd/mm/yyyy";
+    // Date formatter
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     public ReadingTrackAdapter(List<ReadingTrack> list) {
         this.list = list;
@@ -52,7 +58,7 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
         public void bind(ReadingTrack readingTrack) {
             mTitle.setText(readingTrack.getBookTitle());
             mLocation.setText(readingTrack.getLocation());
-            mDate.setText(readingTrack.getDate());
+            mDate.setText(dateFormat.format(readingTrack.getDate()));
             mPages.setText(readingTrack.getPagesRead());
         }
     }

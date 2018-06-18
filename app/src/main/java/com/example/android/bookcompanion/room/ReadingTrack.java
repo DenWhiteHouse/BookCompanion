@@ -5,6 +5,9 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
+
+
 @Entity
 public class ReadingTrack {
     @PrimaryKey(autoGenerate = true)
@@ -14,7 +17,7 @@ public class ReadingTrack {
     private String bookTitle;
 
     @ColumnInfo(name = "date")
-    private String date;
+    private Date date;
 
     @ColumnInfo(name = "location")
     private String location;
@@ -38,11 +41,11 @@ public class ReadingTrack {
         this.bookTitle = title;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

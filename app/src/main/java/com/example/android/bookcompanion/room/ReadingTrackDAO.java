@@ -11,7 +11,6 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-@TypeConverters(ReadingTrackTypeConverter.class)
 public interface ReadingTrackDAO {
 
     @Query("SELECT * FROM readingtrack")

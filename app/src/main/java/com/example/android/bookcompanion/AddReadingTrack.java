@@ -1,10 +1,13 @@
 package com.example.android.bookcompanion;
 
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +18,12 @@ import com.example.android.bookcompanion.data.AddBook;
 import com.example.android.bookcompanion.database.BookContract;
 import com.example.android.bookcompanion.room.ReadingTrack;
 import com.example.android.bookcompanion.room.ReadingTrackDatabase;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +36,9 @@ public class AddReadingTrack extends AppCompatActivity {
     @BindView(R.id.saveReadingTrackButton) Button mSaveReadingTrackButton;
     ReadingTrackDatabase readingTrackDatabase;
     ReadingTrack mReadingTrack;
+    private static final String DATE_FORMAT = "dd/mm/yyyy";
+    Date dateObject;
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
     public AddReadingTrack(){}
 
@@ -41,11 +53,26 @@ public class AddReadingTrack extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mReadingTrack.setBookTitle(mBookTitle.getText().toString());
-                mReadingTrack.setDate(mDate.getText().toString());
+                try {
+                    String stringDate=(mDate.getText().toString());
+                    dateObject = dateFormat.parse(stringDate);
+                    mReadingTrack.setDate(dateObject);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 mReadingTrack.setLocation(mLocation.getText().toString());
                 mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
-                readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().insertReadingTrack(mReadingTrack);
+
+
+                //Simple Runnable and not executor as the User will be add only one Reading track per time.
+                Thread t = new Thread(new Runnable() {
+                    public void run() {
+                        readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().insertReadingTrack(mReadingTrack);
+                    }
+                });
+                t.start();
                 Toast.makeText(AddReadingTrack.this, R.string.reading_track_saved, Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
