@@ -101,6 +101,7 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
                 mReadingTrack.setBookTitle(mBookTitle.getText().toString());
                 mReadingTrack.setLocation(mLocation.getText().toString());
                 if(mPages.getText().toString().equals("")){
+                    //Set value to 0 is the User didn't submit any page
                     mPages.setText("0");
                 }
                 mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
