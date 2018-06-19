@@ -25,11 +25,24 @@
             android:layout_height="wrap_content"
             android:hint="@string/title_readingTrack" />
 
-        <EditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/LocationReadingtrackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/location_readingTrack" />
+
+            <EditText
             android:id="@+id/LocationReadingtrack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/location_readingTrack" />
+            android:hint="@string/no_location" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/DateReadingTrack"

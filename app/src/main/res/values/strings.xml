@@ -33,6 +33,10 @@
     <string name="add_readingTrack">Add Reading Track</string>
     <string name="reading_track_saved">Reading track Saved</string>
 
+    <string name="location_permission_notgranted">Location Permission Not Granted</string>
+    <string name="PlacePickerButton">Select a place</string>
+    <string name="no_location">No Location</string>
+
 
 
 </resources>
