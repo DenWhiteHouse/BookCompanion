@@ -100,7 +100,7 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
             public void onClick(View view) {
                 mReadingTrack.setBookTitle(mBookTitle.getText().toString());
                 mReadingTrack.setLocation(mLocation.getText().toString());
-                if(mPages.getText().equals("")){
+                if(mPages.getText().toString().equals("")){
                     mPages.setText("0");
                 }
                 mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
