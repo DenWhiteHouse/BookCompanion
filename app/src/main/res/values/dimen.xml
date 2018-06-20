@@ -8,4 +8,5 @@
 
     <dimen name="bookImage">150dp</dimen>
     <dimen name="readin_track_info">20sp</dimen>
+    <dimen name="read_pages">18sp</dimen>
 </resources>

@@ -2,11 +2,15 @@ package com.example.android.bookcompanion;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,9 +21,11 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +42,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
@@ -46,13 +53,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AddReadingTrack extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
-    @BindView(R.id.BookTitleReadingtrack) EditText mBookTitle;
+        GoogleApiClient.OnConnectionFailedListener, LoaderManager.LoaderCallbacks<Cursor> {
     @BindView(R.id.LocationReadingtrack) EditText mLocation;
     @BindView(R.id.DateReadingTrack) EditText mDate;
     @BindView(R.id.PagesReadingTrack) EditText mPages;
     @BindView(R.id.saveReadingTrackButton) Button mSaveReadingTrackButton;
     @BindView(R.id.LocationReadingtrackButton) Button mLocationButton;
+    @BindView(R.id.bookTitle_spinner) Spinner bookTitleSpinner;
     ReadingTrackDatabase readingTrackDatabase;
     ReadingTrack mReadingTrack;
     private static final String DATE_FORMAT = "dd/MM/yyyy";
@@ -62,6 +69,11 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
     private static final int PLACE_PICKER_REQUEST = 1;
     public static final String TAG = MainActivity.class.getSimpleName();
+    BookCursorAdapter mCursorAdapter;
+    private static final int BOOK_LOADER = 0;
+    Cursor mBookCursor;
+    String[] mBookTitleSpinnerArray;
+
 
     public AddReadingTrack(){}
 
@@ -70,13 +82,17 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reading_track);
         ButterKnife.bind(this);
+
+        //Managing DB for Spinner Title
+        mCursorAdapter = new BookCursorAdapter(getApplicationContext(), null);
+        getLoaderManager().initLoader(BOOK_LOADER, null, this);
+        //Setting Date Picker
         mReadingTrack = new ReadingTrack();
         dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
         mDate.setInputType(InputType.TYPE_NULL);
         setDateTimeField();
+        //Setting Place Picker
         setApiClient();
-
-
         mDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -98,24 +114,21 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
         mSaveReadingTrackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mReadingTrack.setBookTitle(mBookTitle.getText().toString());
-                mReadingTrack.setLocation(mLocation.getText().toString());
-                if(mPages.getText().toString().equals("")){
-                    //Set value to 0 is the User didn't submit any page
-                    mPages.setText("0");
+                if (checkInputFields()) {
+                    mReadingTrack.setBookTitle(bookTitleSpinner.getSelectedItem().toString());
+                    mReadingTrack.setLocation(mLocation.getText().toString());
+                    mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
+
+                    //Simple Runnable and not executor as the User will be add only one Reading track per time.
+                    Thread t = new Thread(new Runnable() {
+                        public void run() {
+                            readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().insertReadingTrack(mReadingTrack);
+                        }
+                    });
+                    t.start();
+                    Toast.makeText(AddReadingTrack.this, R.string.reading_track_saved, Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-                mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
-
-
-                //Simple Runnable and not executor as the User will be add only one Reading track per time.
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().insertReadingTrack(mReadingTrack);
-                    }
-                });
-                t.start();
-                Toast.makeText(AddReadingTrack.this, R.string.reading_track_saved, Toast.LENGTH_SHORT).show();
-                finish();
             }
         });
     }
@@ -199,4 +212,77 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
         }
     }
 
+    private boolean checkInputFields(){
+        if((bookTitleSpinner.getSelectedItemPosition())==0){
+            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mLocation.getText().toString().isEmpty()){
+            Toast.makeText(this,R.string.warning_empty_location,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mDate.getText().toString().isEmpty()){
+            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mPages.getText().toString().isEmpty()){
+            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private String[] setSpinnerTitleArray(){
+        ArrayList<String> mBookTitleArray = new ArrayList<String>();
+        mBookTitleArray.add(getResources().getString(R.string.selectTitle_Spinner));
+        mBookCursor.moveToFirst();
+        if(mBookCursor.isAfterLast()){
+            //The Library is empty and disable saving button
+            mBookTitleArray.add(getResources().getString(R.string.selectTitle_Spinner));
+            mSaveReadingTrackButton.setClickable(false);
+        }
+        else {
+            while (!mBookCursor.isAfterLast()){
+                mBookTitleArray.add(mBookCursor.getString(mBookCursor.getColumnIndex("name")));
+                mBookCursor.moveToNext();
+            }
+        }
+        return mBookTitleArray.toArray(new String[mBookTitleArray.size()]);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Define a projection that specifies the columns from the table we care about.
+        String[] projection = {
+                BookContract.BookEntry._ID,
+                BookContract.BookEntry.COL_BOOK_IMAGE,
+                BookContract.BookEntry.COL_BOOK_NAME, BookContract.BookEntry.COL_BOOK_AUTH,
+                BookContract.BookEntry.COL_BOOK_PAGES, BookContract.BookEntry.COL_BOOK_START_DATE, BookContract.BookEntry.COL_BOOK_START_DATE};
+
+        return new CursorLoader(this,
+                BookContract.BookEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mCursorAdapter.swapCursor(data);
+       mBookCursor = mCursorAdapter.getCursor();
+       mBookTitleSpinnerArray =  setSpinnerTitleArray();
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.support_simple_spinner_dropdown_item,mBookTitleSpinnerArray);
+        stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        bookTitleSpinner.setAdapter(stringArrayAdapter);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
+    }
+
 }
+
+

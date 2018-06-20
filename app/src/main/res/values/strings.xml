@@ -29,13 +29,23 @@
     <string name="title_readingTrack">Select Book </string>
     <string name="date_readingTrack">Select Date </string>
     <string name="location_readingTrack">Find Location </string>
-    <string name="Page_readingTrack">Page Read During This Track</string>
+    <string name="Page_readingTrack">Pages read: </string>
+    <string name="Page_readingTrackhint">number of pages </string>
     <string name="add_readingTrack">Add Reading Track</string>
     <string name="reading_track_saved">Reading track Saved</string>
 
     <string name="location_permission_notgranted">Location Permission Not Granted</string>
     <string name="PlacePickerButton">Select a place</string>
     <string name="no_location">No Location</string>
+
+    <string name="warning_empty_title">Please select a book before saving</string>
+    <string name="warning_empty_location">Please select a location before saving</string>
+    <string name="Warning_empty_date">Please select a date before saving</string>
+    <string name="warning_empty_pages">Please insert the page you have read before saving</string>
+    <string name="selectTitle_Spinner">Select Book Title</string>
+    <string name="emptyLibrary_Spinner">No book to select</string>
+
+
 
 
 

@@ -35,6 +35,8 @@ public class MyLibrary extends AppCompatActivity implements
         mCursorAdapter = new BookCursorAdapter(getApplicationContext(), null);
         booksListView.setAdapter(mCursorAdapter);
         getLoaderManager().initLoader(BOOK_LOADER, null, this);
+
+        //Set item Click for Cursor Items
         booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
