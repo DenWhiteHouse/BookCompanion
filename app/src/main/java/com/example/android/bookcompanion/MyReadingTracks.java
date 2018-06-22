@@ -5,9 +5,11 @@ import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Layout;
 import android.util.Log;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
@@ -15,7 +17,7 @@ import com.example.android.bookcompanion.room.ReadingTrackDatabase;
 
 import java.util.List;
 
-public class MyLibraryBookDetails extends AppCompatActivity implements ReadingTrackAdapter.ItemClickListener {
+public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAdapter.ItemClickListener {
 
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -32,15 +34,13 @@ public class MyLibraryBookDetails extends AppCompatActivity implements ReadingTr
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.reading_track_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration decoration = new DividerItemDecoration(mRecyclerView.getContext(), layoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(decoration);
         //Set the Adapter
         mAdapter = new ReadingTrackAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
-
-        /*
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), HORIZONTAL);
-        mRecyclerView.addItemDecoration(decoration);
-        */
 
         mDb = ReadingTrackDatabase.getInstance(getApplicationContext());
         retrieveTasks();

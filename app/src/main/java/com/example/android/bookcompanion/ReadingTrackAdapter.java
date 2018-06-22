@@ -32,7 +32,7 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
 
     @Override
     public ReadingTrackViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.readin_track_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.reading_track_item, parent, false);
         return new ReadingTrackViewHolder(view);
     }
 

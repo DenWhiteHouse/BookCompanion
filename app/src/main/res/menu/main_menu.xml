@@ -6,4 +6,9 @@
         android:title="@string/my_library"
         />
 
+    <item
+        android:id="@+id/my_reading_tracks"
+        android:title="@string/my_reading_tracks"
+        />
+
 </menu>

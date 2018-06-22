@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.my_library:
                 startActivity(new Intent(this,MyLibrary.class));
                 return true;
+            case R.id.my_reading_tracks:
+                startActivity(new Intent(this,MyReadingTracks.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

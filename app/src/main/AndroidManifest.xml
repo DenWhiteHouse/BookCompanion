@@ -44,6 +44,14 @@
         </activity>
 
         <activity
+            android:name=".MyReadingTracks"
+            android:label="@string/my_reading_tracks">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bookcompanion.MyReadingTracks"/>
+        </activity>
+
+        <activity
             android:name=".MyLibraryBookDetails"
             android:label="@string/my_library_details">
             <meta-data
