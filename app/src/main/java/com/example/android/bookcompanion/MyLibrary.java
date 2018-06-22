@@ -2,6 +2,7 @@ package com.example.android.bookcompanion;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -44,6 +45,8 @@ public class MyLibrary extends AppCompatActivity implements
                 cursor.moveToPosition(i);
                 String title = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_NAME));
                 Toast.makeText(getApplicationContext(),"prova " + title,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MyLibrary.this,MyLibraryBookDetails.class);
+                startActivity(intent);
             }
         });
     }

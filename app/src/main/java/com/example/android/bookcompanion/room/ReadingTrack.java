@@ -17,7 +17,7 @@ public class ReadingTrack {
     private String bookTitle;
 
     @ColumnInfo(name = "date")
-    private Date date;
+    private String date;
 
     @ColumnInfo(name = "location")
     private String location;
@@ -41,11 +41,11 @@ public class ReadingTrack {
         this.bookTitle = title;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

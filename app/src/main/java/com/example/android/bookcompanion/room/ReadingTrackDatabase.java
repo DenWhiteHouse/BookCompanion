@@ -8,7 +8,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 
-@Database(entities = {ReadingTrack.class}, version = 2)
+@Database(entities = {ReadingTrack.class}, version = 3)
 @TypeConverters(ReadingTrackTypeConverter.class)
 public abstract class ReadingTrackDatabase extends RoomDatabase {
     private static final String DB_NAME = "readingTrackDatabase.db";

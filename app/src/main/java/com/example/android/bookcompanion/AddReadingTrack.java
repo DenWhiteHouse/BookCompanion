@@ -89,7 +89,6 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
         //Setting Date Picker
         mReadingTrack = new ReadingTrack();
         dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
-        mDate.setInputType(InputType.TYPE_NULL);
         setDateTimeField();
         //Setting Place Picker
         setApiClient();
@@ -118,6 +117,7 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
                     mReadingTrack.setBookTitle(bookTitleSpinner.getSelectedItem().toString());
                     mReadingTrack.setLocation(mLocation.getText().toString());
                     mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
+                    mReadingTrack.setDate(mDate.getText().toString());
 
                     //Simple Runnable and not executor as the User will be add only one Reading track per time.
                     Thread t = new Thread(new Runnable() {
