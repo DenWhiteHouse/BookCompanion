@@ -2,8 +2,10 @@ package com.example.android.bookcompanion;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
 import com.example.android.bookcompanion.room.ReadingTrackDatabase;
+import com.example.android.bookcompanion.room.ReadingTrackViewModel;
 
 import java.util.List;
 
@@ -48,6 +51,7 @@ public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAd
 
         mDb = ReadingTrackDatabase.getInstance(getApplicationContext());
         retrieveTasks();
+        setupViewModel();
 
         /*
          Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
@@ -89,6 +93,17 @@ public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAd
             @Override
             public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
                 Log.d(TAG, "Receiving database update from LiveData");
+                mAdapter.setTasks(readingTracks);
+            }
+        });
+    }
+
+    private void setupViewModel() {
+        ReadingTrackViewModel viewModel = ViewModelProviders.of(this).get(ReadingTrackViewModel.class);
+        viewModel.getReadingTrackList().observe(this, new Observer<List<ReadingTrack>>() {
+            @Override
+            public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
+                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mAdapter.setTasks(readingTracks);
             }
         });
