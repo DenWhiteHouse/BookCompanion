@@ -33,6 +33,7 @@
     <string name="Page_readingTrackhint">number of pages </string>
     <string name="add_readingTrack">Add Reading Track</string>
     <string name="reading_track_saved">Reading track Saved</string>
+    <string name="edit">Edit</string>
 
     <string name="location_permission_notgranted">Location Permission Not Granted</string>
     <string name="PlacePickerButton">Select a place</string>

@@ -25,7 +25,7 @@ import com.example.android.bookcompanion.room.ReadingTrackViewModel;
 
 import java.util.List;
 
-public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAdapter.ItemClickListener {
+public class MyReadingTracks extends AppCompatActivity {
 
     ReadingTrackDatabase readingTrackDatabase;
     ReadingTrack mReadingTrack;
@@ -50,7 +50,7 @@ public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAd
         DividerItemDecoration decoration = new DividerItemDecoration(mRecyclerView.getContext(), layoutManager.getOrientation());
         mRecyclerView.addItemDecoration(decoration);
         //Set the Adapter
-        mAdapter = new ReadingTrackAdapter(this, this);
+        mAdapter = new ReadingTrackAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
         mDb = ReadingTrackDatabase.getInstance(getApplicationContext());
@@ -99,11 +99,6 @@ public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAd
                         }
         }).attachToRecyclerView(mRecyclerView);
 
-    }
-
-    @Override
-    public void onItemClickListener(int itemId) {
-        Toast.makeText(getApplicationContext(),"Item clicked " + itemId,Toast.LENGTH_SHORT).show();
     }
 
     private void retrieveTasks() {

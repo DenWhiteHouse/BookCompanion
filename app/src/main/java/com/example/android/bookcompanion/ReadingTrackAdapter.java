@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,8 +17,6 @@ import java.util.Locale;
 
 public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapter.ReadingTrackViewHolder> {
 
-    // Member variable to handle item clicks
-    final private ItemClickListener mItemClickListener;
     private Context mContext;
 
     private  List<ReadingTrack> mRTracksList;
@@ -26,9 +25,8 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
     // Date formatter
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
-    public ReadingTrackAdapter(Context context, ItemClickListener listener ){
+    public ReadingTrackAdapter(Context context){
         mContext = context;
-        mItemClickListener = listener;
     }
 
     @Override
@@ -38,20 +36,27 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
     }
 
     @Override
-    public void onBindViewHolder(ReadingTrackViewHolder holder, int position) {
+    public void onBindViewHolder(final ReadingTrackViewHolder holder, int position) {
         ReadingTrack readingTrack = mRTracksList.get(position);
         holder.mTitle.setText(readingTrack.getBookTitle());
         holder.mLocation.setText(readingTrack.getLocation());
         holder.mDate.setText(String.valueOf(readingTrack.getDate()));
         holder.mPages.setText(String.valueOf(readingTrack.getPagesRead()));
+        holder.mEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"prova " + holder.mTitle.getText().toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
-    class ReadingTrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ReadingTrackViewHolder extends RecyclerView.ViewHolder {
         private TextView mTitle;
         private TextView mLocation;
         private TextView mDate;
         private TextView mPages;
+        private Button mEditButton;
 
         public ReadingTrackViewHolder(View itemView) {
             super(itemView);
@@ -59,16 +64,10 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
             mLocation = itemView.findViewById(R.id.LocationReadingtrackTV);
             mDate = itemView.findViewById(R.id.DateReadingTrackTV);
             mPages = itemView.findViewById(R.id.PagesReadingTrackTV);
-            itemView.setOnClickListener(this);
-
+            mEditButton = itemView.findViewById(R.id.editTrackButton);
         }
 
 
-        @Override
-        public void onClick(View view) {
-            int elementId = mRTracksList.get(getAdapterPosition()).getUid();
-            mItemClickListener.onItemClickListener(elementId);
-        }
     }
 
     @Override
@@ -92,7 +91,4 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
         return mRTracksList;
     }
 
-    public interface ItemClickListener {
-        void onItemClickListener(int itemId);
-    }
 }

@@ -15,7 +15,7 @@ import com.example.android.bookcompanion.room.ReadingTrackDatabase;
 
 import java.util.List;
 
-public class MyLibraryBookDetails extends AppCompatActivity implements ReadingTrackAdapter.ItemClickListener {
+public class MyLibraryBookDetails extends AppCompatActivity {
 
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -34,7 +34,7 @@ public class MyLibraryBookDetails extends AppCompatActivity implements ReadingTr
         mRecyclerView = findViewById(R.id.reading_track_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         //Set the Adapter
-        mAdapter = new ReadingTrackAdapter(this, this);
+        mAdapter = new ReadingTrackAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
         /*
@@ -89,14 +89,7 @@ public class MyLibraryBookDetails extends AppCompatActivity implements ReadingTr
      * so this re-queries the database data for any changes.
      */
 
-    @Override
-    public void onItemClickListener(int itemId) {
-        /*
-        Intent intent = new Intent(MainActivity.this, AddReadingTrack.class);
-        intent.putExtra(AddReadingTrack.EXTRA_TASK_ID, itemId);
-        startActivity(intent);
-        */
-    }
+
 
     private void retrieveTasks() {
         Log.d(TAG, "Actively retrieving the tasks from the DataBase");
