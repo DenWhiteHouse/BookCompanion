@@ -88,6 +88,10 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
         notifyDataSetChanged();
     }
 
+    public List<ReadingTrack> getReadingTracks() {
+        return mRTracksList;
+    }
+
     public interface ItemClickListener {
         void onItemClickListener(int itemId);
     }

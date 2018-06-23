@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Layout;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
 import com.example.android.bookcompanion.room.ReadingTrackDatabase;
@@ -18,6 +19,9 @@ import com.example.android.bookcompanion.room.ReadingTrackDatabase;
 import java.util.List;
 
 public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAdapter.ItemClickListener {
+
+    ReadingTrackDatabase readingTrackDatabase;
+    ReadingTrack mReadingTrack;
 
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -58,44 +62,24 @@ public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAd
 
             // Called when a user swipes left or right on a ViewHolder
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Here is where you'll implement swipe to delete
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                Thread t = new Thread(new Runnable() {
+                    public void run() {
+                        int position = viewHolder.getAdapterPosition();
+                        List<ReadingTrack> readingtracks = mAdapter.getReadingTracks();
+                        readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().delete(readingtracks.get(position));
+                    }
+                });
+                t.start();
+                Toast.makeText(MyReadingTracks.this, "item Deleted ", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        /*
-         Set the Floating Action Button (FAB) to its corresponding View.
-         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-         to launch the AddTaskActivity.
-         */
-        /*FloatingActionButton fabButton = findViewById(R.id.fab);
-
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTaskActivity
-                Intent addTaskIntent = new Intent(MyLibraryBookDetails.this, AddReadingTrack.class);
-                startActivity(addTaskIntent);
-            }
-        });
-        */
-
-
     }
-
-    /**
-     * This method is called after this activity has been paused or restarted.
-     * Often, this is after new data has been inserted through an AddTaskActivity,
-     * so this re-queries the database data for any changes.
-     */
 
     @Override
     public void onItemClickListener(int itemId) {
-        /*
-        Intent intent = new Intent(MainActivity.this, AddReadingTrack.class);
-        intent.putExtra(AddReadingTrack.EXTRA_TASK_ID, itemId);
-        startActivity(intent);
-        */
+        Toast.makeText(this,"Item clicked",Toast.LENGTH_SHORT).show();
     }
 
     private void retrieveTasks() {

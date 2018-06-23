@@ -185,7 +185,6 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
                 Log.i(TAG, "No place selected");
                 return;
             }
-
             // Extract the place information from the API
             mLocation.setText(place.getAddress().toString());
         }
