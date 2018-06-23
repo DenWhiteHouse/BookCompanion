@@ -52,6 +52,10 @@
     <string name="detailsDate">Date: </string>
     <string name="detailsPages">Pages Read: </string>
 
+    <string name="swipeAlert">Do you really want to delete this item? </string>
+    <string name="YES">YES</string>
+    <string name="NO">NO</string>
+
 
 
 

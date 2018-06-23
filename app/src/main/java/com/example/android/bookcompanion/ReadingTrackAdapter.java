@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
 
@@ -38,12 +39,15 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
 
     @Override
     public void onBindViewHolder(ReadingTrackViewHolder holder, int position) {
-        holder.bind(mRTracksList.get(position));
+        ReadingTrack readingTrack = mRTracksList.get(position);
+        holder.mTitle.setText(readingTrack.getBookTitle());
+        holder.mLocation.setText(readingTrack.getLocation());
+        holder.mDate.setText(String.valueOf(readingTrack.getDate()));
+        holder.mPages.setText(String.valueOf(readingTrack.getPagesRead()));
     }
 
 
     class ReadingTrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         private TextView mTitle;
         private TextView mLocation;
         private TextView mDate;
@@ -55,14 +59,10 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
             mLocation = itemView.findViewById(R.id.LocationReadingtrackTV);
             mDate = itemView.findViewById(R.id.DateReadingTrackTV);
             mPages = itemView.findViewById(R.id.PagesReadingTrackTV);
+            itemView.setOnClickListener(this);
+
         }
 
-        public void bind(ReadingTrack readingTrack) {
-            mTitle.setText(readingTrack.getBookTitle());
-            mLocation.setText(readingTrack.getLocation());
-            mDate.setText(String.valueOf(readingTrack.getDate()));
-            mPages.setText(String.valueOf(readingTrack.getPagesRead()));
-        }
 
         @Override
         public void onClick(View view) {

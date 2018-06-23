@@ -3,9 +3,11 @@ package com.example.android.bookcompanion;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.Layout;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
@@ -58,7 +62,7 @@ public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAd
          An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
          and uses callbacks to signal when a user is performing these actions.
          */
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -67,23 +71,39 @@ public class MyReadingTracks extends AppCompatActivity implements ReadingTrackAd
             // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                Thread t = new Thread(new Runnable() {
-                    public void run() {
-                        int position = viewHolder.getAdapterPosition();
-                        List<ReadingTrack> readingtracks = mAdapter.getReadingTracks();
-                        readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().delete(readingtracks.get(position));
-                    }
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyReadingTracks.this);
+                builder.setMessage(R.string.swipeAlert);
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        Thread t = new Thread(new Runnable() {
+                            public void run() {
+                                int position = viewHolder.getAdapterPosition();
+                                List<ReadingTrack> readingtracks = mAdapter.getReadingTracks();
+                                readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().delete(readingtracks.get(position));
+                            }
+                        });
+                        t.start();
+                        dialog.cancel();
+                        Toast.makeText(MyReadingTracks.this, "item Deleted ", Toast.LENGTH_SHORT).show();
+                    };
                 });
-                t.start();
-                Toast.makeText(MyReadingTracks.this, "item Deleted ", Toast.LENGTH_SHORT).show();
-            }
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        dialog.cancel();
+                    };
+                });
+                builder.show();
+                        }
         }).attachToRecyclerView(mRecyclerView);
 
     }
 
     @Override
     public void onItemClickListener(int itemId) {
-        Toast.makeText(this,"Item clicked",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Item clicked " + itemId,Toast.LENGTH_SHORT).show();
     }
 
     private void retrieveTasks() {
