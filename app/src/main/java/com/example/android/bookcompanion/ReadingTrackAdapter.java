@@ -1,6 +1,7 @@
 package com.example.android.bookcompanion;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,8 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
 
     @Override
     public void onBindViewHolder(final ReadingTrackViewHolder holder, int position) {
-        ReadingTrack readingTrack = mRTracksList.get(position);
+        final ReadingTrack readingTrack = mRTracksList.get(position);
+        final Integer listposition= position;
         holder.mTitle.setText(readingTrack.getBookTitle());
         holder.mLocation.setText(readingTrack.getLocation());
         holder.mDate.setText(String.valueOf(readingTrack.getDate()));
@@ -46,6 +48,13 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext,"prova " + holder.mTitle.getText().toString(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext,EditReadingTrack.class);
+                intent.putExtra("LISTPOSITION",listposition);
+                intent.putExtra("BOOKTITLE",readingTrack.getBookTitle());
+                intent.putExtra("BOOKLOCATION",readingTrack.getLocation());
+                intent.putExtra("BOOKDATE",readingTrack.getDate());
+                intent.putExtra("BOOKPAGES",String.valueOf(readingTrack.getPagesRead()));
+                mContext.startActivity(intent);
             }
         });
     }

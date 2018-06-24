@@ -4,12 +4,13 @@ package com.example.android.bookcompanion.room;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcelable;
 
 import java.util.Date;
 
 
 @Entity
-public class ReadingTrack {
+public class ReadingTrack{
     @PrimaryKey(autoGenerate = true)
     private int uid;
 

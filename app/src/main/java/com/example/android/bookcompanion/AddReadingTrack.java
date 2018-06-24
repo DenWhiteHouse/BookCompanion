@@ -68,7 +68,7 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
     private GoogleApiClient mApiClient;
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
     private static final int PLACE_PICKER_REQUEST = 1;
-    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = AddReadingTrack.class.getSimpleName();
     BookCursorAdapter mCursorAdapter;
     private static final int BOOK_LOADER = 0;
     Cursor mBookCursor;
