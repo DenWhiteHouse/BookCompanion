@@ -16,11 +16,8 @@ public interface ReadingTrackDAO {
     @Query("SELECT * FROM readingtrack")
     LiveData<List<ReadingTrack>> getAllReadingTrack();
 
-    @Query("SELECT * FROM readingtrack WHERE bookTitle LIKE :booktitle")
+    @Query("SELECT * FROM readingtrack WHERE bookTitle = :booktitle")
     LiveData<List<ReadingTrack>> getByTitle (String booktitle);
-
-    @Insert
-    void insertAll(List<ReadingTrack> readingTracks);
 
     @Insert
     void insertReadingTrack(ReadingTrack readingTracks);

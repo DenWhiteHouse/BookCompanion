@@ -63,7 +63,6 @@ public class MyLibraryBookDetails extends AppCompatActivity {
 
         mDb = ReadingTrackDatabase.getInstance(getApplicationContext());
         retrieveTasks(intent);
-        setupViewModel();
 
         /*
          Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
@@ -156,14 +155,4 @@ public class MyLibraryBookDetails extends AppCompatActivity {
 
     }
 
-    private void setupViewModel() {
-        ReadingTrackViewModel viewModel = ViewModelProviders.of(this).get(ReadingTrackViewModel.class);
-        viewModel.getReadingTrackList().observe(this, new Observer<List<ReadingTrack>>() {
-            @Override
-            public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
-                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
-                mAdapter.setTasks(readingTracks);
-            }
-        });
-    }
 }
