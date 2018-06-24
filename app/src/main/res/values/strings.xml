@@ -62,6 +62,7 @@
     <string name="unsaved_changes">There are unsaved changes. Do you want to continue editing the Reading track?</string>
     <string name="keep">Keep</string>
     <string name="discard">Discard</string>
+    <string name="itemUpdated">"Reading Track Updated</string>
 
 
 

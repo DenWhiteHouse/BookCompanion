@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 
 public class EditReadingTrack extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
+    // I have divided EDIT from ADD without using a FLAG for learning purposes
 @BindView(R.id.LocationReadingtrack) EditText mLocation;
 @BindView(R.id.DateReadingTrack)  EditText mDate;
 @BindView(R.id.PagesReadingTrack) EditText mPages;
@@ -88,6 +89,7 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
         mLocation.setText(intent.getStringExtra("BOOKLOCATION"));
         mDate.setText(intent.getStringExtra("BOOKDATE"));
         mPages.setText(intent.getStringExtra("BOOKPAGES"));
+        mReadingTrack.setUid(intent.getIntExtra("ID",-1));
         // Setting onChangeHelper
 
         mLocation.setOnTouchListener(mTouchListener);
@@ -98,6 +100,29 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
     // CLASS METHODS
 
     public void setButtons(){
+        mEditReadingTrackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkInputFields()) {
+                    mReadingTrack.setBookTitle(bookTitle.getText().toString());
+                    mReadingTrack.setLocation(mLocation.getText().toString());
+                    mReadingTrack.setPagesRead(Integer.parseInt(mPages.getText().toString()));
+                    mReadingTrack.setDate(mDate.getText().toString());
+
+                    //Simple Runnable and not executor as the User will be add only one Reading track per time.
+                    Thread t = new Thread(new Runnable() {
+                        public void run() {
+                            readingTrackDatabase.getInstance(getApplicationContext()).getReadingtrackDao().update(mReadingTrack);
+                        }
+                    });
+                    t.start();
+                    Toast.makeText(EditReadingTrack.this, R.string.itemUpdated, Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+            }
+        });
+
         mDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -227,5 +252,21 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private boolean checkInputFields(){
+        if(mLocation.getText().toString().isEmpty()){
+            Toast.makeText(this,R.string.warning_empty_location,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mDate.getText().toString().isEmpty()){
+            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(mPages.getText().toString().isEmpty()){
+            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

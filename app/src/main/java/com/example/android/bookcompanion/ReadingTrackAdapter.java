@@ -49,7 +49,7 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
             public void onClick(View view) {
                 Toast.makeText(mContext,"prova " + holder.mTitle.getText().toString(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext,EditReadingTrack.class);
-                intent.putExtra("LISTPOSITION",listposition);
+                intent.putExtra("ID",readingTrack.getUid());
                 intent.putExtra("BOOKTITLE",readingTrack.getBookTitle());
                 intent.putExtra("BOOKLOCATION",readingTrack.getLocation());
                 intent.putExtra("BOOKDATE",readingTrack.getDate());
