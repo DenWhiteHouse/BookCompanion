@@ -47,7 +47,7 @@
     <string name="emptyLibrary_Spinner">No book to select</string>
 
     <string name="my_library_details">My Library Details</string>
-    <string name="my_reading_tracks">My ReadingTracks</string>
+    <string name="my_reading_tracks">My Reading Tracks</string>
     <string name="detailsTitle">Book Title:</string>
     <string name="detailsLocation">Location: </string>
     <string name="detailsDate">Date: </string>

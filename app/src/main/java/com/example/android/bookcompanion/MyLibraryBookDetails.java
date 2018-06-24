@@ -2,20 +2,38 @@ package com.example.android.bookcompanion;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
 import com.example.android.bookcompanion.room.ReadingTrackDatabase;
+import com.example.android.bookcompanion.room.ReadingTrackViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MyLibraryBookDetails extends AppCompatActivity {
+    @BindView(R.id.bookTitleLibrary) TextView mBookTitleTV;
+    @BindView(R.id.bookAuthorLibrary) TextView mBookAuthorTV;
+    @BindView(R.id.bookPagesLibrary) TextView mBookPageTV;
+    @BindView(R.id.bookImageLibrary) ImageView mBookImage;
 
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -27,23 +45,25 @@ public class MyLibraryBookDetails extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_library_details_activity);
+        ButterKnife.bind(this);
 
-        setContentView(R.layout.my_reading_tracks);
+        Intent intent = getIntent();
+        setBookInfo(intent);
 
         // Set the RecyclerView to its corresponding view
         mRecyclerView = findViewById(R.id.reading_track_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration decoration = new DividerItemDecoration(mRecyclerView.getContext(), layoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(decoration);
         //Set the Adapter
         mAdapter = new ReadingTrackAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        /*
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), HORIZONTAL);
-        mRecyclerView.addItemDecoration(decoration);
-        */
-
         mDb = ReadingTrackDatabase.getInstance(getApplicationContext());
-        retrieveTasks();
+        retrieveTasks(intent);
+        setupViewModel();
 
         /*
          Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
@@ -58,8 +78,32 @@ public class MyLibraryBookDetails extends AppCompatActivity {
 
             // Called when a user swipes left or right on a ViewHolder
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Here is where you'll implement swipe to delete
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyLibraryBookDetails.this);
+                builder.setMessage(R.string.swipeAlert);
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        Thread t = new Thread(new Runnable() {
+                            public void run() {
+                                int position = viewHolder.getAdapterPosition();
+                                List<ReadingTrack> readingtracks = mAdapter.getReadingTracks();
+                                mDb.getInstance(getApplicationContext()).getReadingtrackDao().delete(readingtracks.get(position));
+                            }
+                        });
+                        t.start();
+                        dialog.cancel();
+                        Toast.makeText(MyLibraryBookDetails.this, "item Deleted ", Toast.LENGTH_SHORT).show();
+                    };
+                });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        dialog.cancel();
+                    };
+                });
+                builder.show();
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -91,13 +135,33 @@ public class MyLibraryBookDetails extends AppCompatActivity {
 
 
 
-    private void retrieveTasks() {
+    private void retrieveTasks(Intent intent) {
         Log.d(TAG, "Actively retrieving the tasks from the DataBase");
-        LiveData<List<ReadingTrack>> tasks = mDb.getReadingtrackDao().getAllReadingTrack();
+        LiveData<List<ReadingTrack>> tasks = mDb.getReadingtrackDao().getByTitle(intent.getStringExtra("BOOKTITLE"));
         tasks.observe(this, new Observer<List<ReadingTrack>>() {
             @Override
             public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
                 Log.d(TAG, "Receiving database update from LiveData");
+                mAdapter.setTasks(readingTracks);
+            }
+        });
+    }
+
+    private void setBookInfo(Intent intent){
+        mBookTitleTV.setText(intent.getStringExtra("BOOKTITLE"));
+        mBookAuthorTV.setText(intent.getStringExtra("AUTHOR"));
+        mBookPageTV.setText(intent.getStringExtra("PAGES"));
+        Uri builtUri = Uri.parse(intent.getStringExtra("IMAGEURL")).buildUpon().build();
+        Picasso.with(this).load(builtUri).into(mBookImage);
+
+    }
+
+    private void setupViewModel() {
+        ReadingTrackViewModel viewModel = ViewModelProviders.of(this).get(ReadingTrackViewModel.class);
+        viewModel.getReadingTrackList().observe(this, new Observer<List<ReadingTrack>>() {
+            @Override
+            public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
+                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mAdapter.setTasks(readingTracks);
             }
         });

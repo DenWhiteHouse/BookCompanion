@@ -17,6 +17,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
@@ -24,6 +25,8 @@ import com.example.android.bookcompanion.room.ReadingTrackDatabase;
 import com.example.android.bookcompanion.room.ReadingTrackViewModel;
 
 import java.util.List;
+
+import butterknife.BindView;
 
 public class MyReadingTracks extends AppCompatActivity {
 
