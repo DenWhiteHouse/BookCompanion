@@ -1,6 +1,7 @@
 package com.example.android.bookcompanion.BookQuoteFeature;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.example.android.bookcompanion.R;
 import java.util.List;
 
 public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder> {
+    public static final String EXTRA_QUOTE_ID = "extraQuoteId";
     // Class variables for the List that holds task data and the Context
     private List<QuoteEntry> mQuoteEntries;
     private Context mContext;
@@ -35,9 +37,9 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
     }
 
     @Override
-    public void onBindViewHolder(QuoteViewHolder holder, int position) {
+    public void onBindViewHolder(final QuoteViewHolder holder, int position) {
         // Determine the values of the wanted data
-        QuoteEntry quoteEntry = mQuoteEntries.get(position);
+        final QuoteEntry quoteEntry = mQuoteEntries.get(position);
         String quoteContent = quoteEntry.getQuoteContent();
         final String quoteBookTitle = quoteEntry.getBookTitle();
         //Set values
@@ -46,7 +48,9 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,quoteBookTitle,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext,AddQuoteActivity.class);
+                intent.putExtra(EXTRA_QUOTE_ID,quoteEntry.getId());
+                mContext.startActivity(intent);
             }
         });
     }

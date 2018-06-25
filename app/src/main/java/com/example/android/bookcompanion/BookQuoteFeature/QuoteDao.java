@@ -19,8 +19,8 @@ public interface QuoteDao {
     @Query("SELECT * FROM quote WHERE bookTitle = :bookTitle")
     LiveData<List<QuoteEntry>> loadQuoteByTitle(String bookTitle);
 
-    @Query("SELECT * FROM quote WHERE bookTitle = :bookTitle")
-    LiveData<QuoteEntry> loadSingleQuoteByTitle(String bookTitle);
+    @Query("SELECT * FROM quote WHERE id = :id")
+    LiveData<QuoteEntry> loadSingleQuoteByID(int id);
 
     @Insert
     void insertQuote(QuoteEntry quoteEntry);

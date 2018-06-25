@@ -5,16 +5,16 @@ import android.arch.lifecycle.ViewModelProvider;
 
 public class AddQuoteViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final QuoteDatabase mDb;
-    private final String mBookTitle;
+    private final int mID;
 
-    public AddQuoteViewModelFactory(QuoteDatabase database, String bookTitle) {
+    public AddQuoteViewModelFactory(QuoteDatabase database, int ID) {
         mDb = database;
-        mBookTitle = bookTitle;
+        mID = ID;
     }
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         //noinspection unchecked
-        return (T) new AddQuoteViewModel(mDb, mBookTitle);
+        return (T) new AddQuoteViewModel(mDb, mID);
     }
 }
