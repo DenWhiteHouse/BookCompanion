@@ -19,9 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.bookcompanion.BookQuoteFeature.MyQuotesViewModel;
+import com.example.android.bookcompanion.BookQuoteFeature.QuoteAdapter;
+import com.example.android.bookcompanion.BookQuoteFeature.QuoteDatabase;
+import com.example.android.bookcompanion.BookQuoteFeature.QuoteEntry;
 import com.example.android.bookcompanion.room.ReadingTrack;
 import com.example.android.bookcompanion.room.ReadingTrackDatabase;
-import com.example.android.bookcompanion.room.ReadingTrackViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -29,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyLibraryBookDetails extends AppCompatActivity {
+public class MyLibraryBookDetails extends AppCompatActivity implements QuoteAdapter.ItemClickListener {
     @BindView(R.id.bookTitleLibrary) TextView mBookTitleTV;
     @BindView(R.id.bookAuthorLibrary) TextView mBookAuthorTV;
     @BindView(R.id.bookPagesLibrary) TextView mBookPageTV;
@@ -38,9 +41,12 @@ public class MyLibraryBookDetails extends AppCompatActivity {
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
     // Member variables for the adapter and RecyclerView
-    private RecyclerView mRecyclerView;
-    private ReadingTrackAdapter mAdapter;
-    private ReadingTrackDatabase mDb;
+    private RecyclerView mRecyclerViewReadingTracks;
+    private RecyclerView mRecyclerViewQuotes;
+    private ReadingTrackAdapter mAdapterReadingTracks;
+    private QuoteAdapter mAdapterQuotes;
+    private ReadingTrackDatabase mDbReadingTracks;
+    private QuoteDatabase mDbQuotes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,24 +57,19 @@ public class MyLibraryBookDetails extends AppCompatActivity {
         Intent intent = getIntent();
         setBookInfo(intent);
 
-        // Set the RecyclerView to its corresponding view
-        mRecyclerView = findViewById(R.id.reading_track_recycler_view);
+        // Set the RecyclerView for ReadingTracks
+        mRecyclerViewReadingTracks = findViewById(R.id.reading_track_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-        DividerItemDecoration decoration = new DividerItemDecoration(mRecyclerView.getContext(), layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(decoration);
+        mRecyclerViewReadingTracks.setLayoutManager(layoutManager);
+        DividerItemDecoration decoration = new DividerItemDecoration(mRecyclerViewReadingTracks.getContext(), layoutManager.getOrientation());
+        mRecyclerViewReadingTracks.addItemDecoration(decoration);
         //Set the Adapter
-        mAdapter = new ReadingTrackAdapter(this);
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapterReadingTracks = new ReadingTrackAdapter(this);
+        mRecyclerViewReadingTracks.setAdapter(mAdapterReadingTracks);
 
-        mDb = ReadingTrackDatabase.getInstance(getApplicationContext());
-        retrieveTasks(intent);
+        mDbReadingTracks = ReadingTrackDatabase.getInstance(getApplicationContext());
+        retrieveReadingTracks(intent.getStringExtra("BOOKTITLE"));
 
-        /*
-         Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
-         An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
-         and uses callbacks to signal when a user is performing these actions.
-         */
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -86,8 +87,8 @@ public class MyLibraryBookDetails extends AppCompatActivity {
                         Thread t = new Thread(new Runnable() {
                             public void run() {
                                 int position = viewHolder.getAdapterPosition();
-                                List<ReadingTrack> readingtracks = mAdapter.getReadingTracks();
-                                mDb.getInstance(getApplicationContext()).getReadingtrackDao().delete(readingtracks.get(position));
+                                List<ReadingTrack> readingtracks = mAdapterReadingTracks.getReadingTracks();
+                                mDbReadingTracks.getInstance(getApplicationContext()).getReadingtrackDao().delete(readingtracks.get(position));
                             }
                         });
                         t.start();
@@ -98,53 +99,82 @@ public class MyLibraryBookDetails extends AppCompatActivity {
                 builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
-                        mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        mAdapterReadingTracks.notifyItemChanged(viewHolder.getAdapterPosition());
                         dialog.cancel();
                     };
                 });
                 builder.show();
             }
-        }).attachToRecyclerView(mRecyclerView);
+        }).attachToRecyclerView(mRecyclerViewReadingTracks);
 
-        /*
-         Set the Floating Action Button (FAB) to its corresponding View.
-         Attach an OnClickListener to it, so that when it's clicked, a new intent will be created
-         to launch the AddTaskActivity.
-         */
-        /*FloatingActionButton fabButton = findViewById(R.id.fab);
+        //Setting RecylerView for Quotes
 
-        fabButton.setOnClickListener(new View.OnClickListener() {
+
+        mRecyclerViewQuotes = findViewById(R.id.quotes_recycler_view);
+        LinearLayoutManager layoutManagerQuotes = new LinearLayoutManager(this);
+        mRecyclerViewQuotes.setLayoutManager(layoutManagerQuotes);
+        DividerItemDecoration decorationQuotes = new DividerItemDecoration(mRecyclerViewQuotes.getContext(), layoutManager.getOrientation());
+        mRecyclerViewQuotes.addItemDecoration(decorationQuotes);
+
+        // Initialize the adapter and attach it to the RecyclerView
+        mAdapterQuotes = new QuoteAdapter(this, this);
+        mRecyclerViewQuotes.setAdapter(mAdapterQuotes);
+
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
-            public void onClick(View view) {
-                // Create a new intent to start an AddTaskActivity
-                Intent addTaskIntent = new Intent(MyLibraryBookDetails.this, AddReadingTrack.class);
-                startActivity(addTaskIntent);
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
             }
-        });
-        */
 
+            // Called when a user swipes left or right on a ViewHolder
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyLibraryBookDetails.this);
+                builder.setMessage(R.string.swipeAlert);
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                int position = viewHolder.getAdapterPosition();
+                                List<QuoteEntry> quotes = mAdapterQuotes.getQuotes();
+                                mDbQuotes.QuoteDao().deleteQuote(quotes.get(position));
+                            }
+                        });
+                        dialog.cancel();
+                        Toast.makeText(MyLibraryBookDetails.this, "item Deleted ", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        mAdapterQuotes.notifyItemChanged(viewHolder.getAdapterPosition());
+                        dialog.cancel();
+                    };
+                });
+                builder.show();
+            }
+        }).attachToRecyclerView(mRecyclerViewQuotes);
+
+        mDbQuotes = QuoteDatabase.getInstance(getApplicationContext());
+        setupViewModel(intent.getStringExtra("BOOKTITLE"));
 
     }
 
-    /**
-     * This method is called after this activity has been paused or restarted.
-     * Often, this is after new data has been inserted through an AddTaskActivity,
-     * so this re-queries the database data for any changes.
-     */
-
-
-
-    private void retrieveTasks(Intent intent) {
+    private void retrieveReadingTracks(String bookTitle) {
         Log.d(TAG, "Actively retrieving the tasks from the DataBase");
-        LiveData<List<ReadingTrack>> tasks = mDb.getReadingtrackDao().getByTitle(intent.getStringExtra("BOOKTITLE"));
+        LiveData<List<ReadingTrack>> tasks = mDbReadingTracks.getReadingtrackDao().getByTitle(bookTitle);
         tasks.observe(this, new Observer<List<ReadingTrack>>() {
             @Override
             public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
                 Log.d(TAG, "Receiving database update from LiveData");
-                mAdapter.setTasks(readingTracks);
+                mAdapterReadingTracks.setTasks(readingTracks);
             }
         });
     }
+
 
     private void setBookInfo(Intent intent){
         mBookTitleTV.setText(intent.getStringExtra("BOOKTITLE"));
@@ -153,6 +183,22 @@ public class MyLibraryBookDetails extends AppCompatActivity {
         Uri builtUri = Uri.parse(intent.getStringExtra("IMAGEURL")).buildUpon().build();
         Picasso.with(this).load(builtUri).into(mBookImage);
 
+    }
+
+    private void setupViewModel(String bookTitle) {
+        MyQuotesViewModel viewModel = ViewModelProviders.of(this).get(MyQuotesViewModel.class);
+        viewModel.getQuotesByTitle(bookTitle).observe(this, new Observer<List<QuoteEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<QuoteEntry> quoteEntries) {
+                Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
+                mAdapterQuotes.setQuotes(quoteEntries);
+            }
+        });
+    }
+
+    @Override
+    public void onItemClickListener(int itemId) {
+        Toast.makeText(MyLibraryBookDetails.this,"prova",Toast.LENGTH_SHORT).show();
     }
 
 }

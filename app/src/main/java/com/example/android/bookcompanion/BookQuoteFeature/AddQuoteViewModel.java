@@ -7,7 +7,7 @@ public class AddQuoteViewModel extends ViewModel {
     private LiveData<QuoteEntry> quote;
 
     public AddQuoteViewModel(QuoteDatabase database, String bookTitle) {
-        quote = database.QuoteDao().loadQuoteByTitle(bookTitle);
+        quote = database.QuoteDao().loadSingleQuoteByTitle(bookTitle);
     }
 
     public LiveData<QuoteEntry> getQuote() {

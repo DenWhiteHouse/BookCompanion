@@ -17,7 +17,10 @@ public interface QuoteDao {
     LiveData<List<QuoteEntry>> loadAllQuotes();
 
     @Query("SELECT * FROM quote WHERE bookTitle = :bookTitle")
-    LiveData<QuoteEntry> loadQuoteByTitle(String bookTitle);
+    LiveData<List<QuoteEntry>> loadQuoteByTitle(String bookTitle);
+
+    @Query("SELECT * FROM quote WHERE bookTitle = :bookTitle")
+    LiveData<QuoteEntry> loadSingleQuoteByTitle(String bookTitle);
 
     @Insert
     void insertQuote(QuoteEntry quoteEntry);

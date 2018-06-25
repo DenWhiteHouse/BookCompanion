@@ -2,8 +2,10 @@ package com.example.android.bookcompanion;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,13 +43,15 @@ public class MyQuotes extends AppCompatActivity implements QuoteAdapter.ItemClic
 
         // Set the layout for the RecyclerView to be a linear layout, which measures and
         // positions items within a RecyclerView into a linear list
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        DividerItemDecoration decoration = new DividerItemDecoration(mRecyclerView.getContext(), layoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(decoration);
 
         // Initialize the adapter and attach it to the RecyclerView
         mAdapter = new QuoteAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
-        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
-        mRecyclerView.addItemDecoration(decoration);
+
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -58,15 +62,31 @@ public class MyQuotes extends AppCompatActivity implements QuoteAdapter.ItemClic
             // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                // Here is where you'll implement swipe to delete
-                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MyQuotes.this);
+                builder.setMessage(R.string.swipeAlert);
+                builder.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
                     @Override
-                    public void run() {
-                        int position = viewHolder.getAdapterPosition();
-                        List<QuoteEntry> quotes = mAdapter.getQuotes();
-                        mDb.QuoteDao().deleteQuote(quotes.get(position));
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                int position = viewHolder.getAdapterPosition();
+                                List<QuoteEntry> quotes = mAdapter.getQuotes();
+                                mDb.QuoteDao().deleteQuote(quotes.get(position));
+                            }
+                        });
+                        dialog.cancel();
+                        Toast.makeText(MyQuotes.this, "item Deleted ", Toast.LENGTH_SHORT).show();
                     }
                 });
+                        builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int arg1) {
+                                mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                                dialog.cancel();
+                            };
+                        });
+                builder.show();
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -78,17 +98,16 @@ public class MyQuotes extends AppCompatActivity implements QuoteAdapter.ItemClic
         MyQuotesViewModel viewModel = ViewModelProviders.of(this).get(MyQuotesViewModel.class);
         viewModel.getQuotes().observe(this, new Observer<List<QuoteEntry>>() {
             @Override
-            public void onChanged(@Nullable List<QuoteEntry> taskEntries) {
+            public void onChanged(@Nullable List<QuoteEntry> quoteEntries) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
-                mAdapter.setQuotes(taskEntries);
+                mAdapter.setQuotes(quoteEntries);
             }
         });
     }
 
     @Override
     public void onItemClickListener(int itemId) {
-        // Launch AddTaskActivity adding the itemId as an extra in the intent
-        Toast.makeText(this,"prova",Toast.LENGTH_SHORT).show();
+        Toast.makeText(MyQuotes.this,"prova",Toast.LENGTH_SHORT).show();
     }
 
 

@@ -73,6 +73,7 @@
     <string name="quoteBook">"Book Title</string>
     <string name="quoteDescription">"Quote Content</string>
     <string name="myQuotes">"My Quotes</string>
+    <string name="quoteContent_empty">"Please insert a quote content.</string>
 
 
 

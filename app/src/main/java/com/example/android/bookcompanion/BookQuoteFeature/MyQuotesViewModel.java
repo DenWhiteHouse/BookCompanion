@@ -21,7 +21,13 @@ public class MyQuotesViewModel extends AndroidViewModel {
         quotes = database.QuoteDao().loadAllQuotes();
     }
 
+
     public LiveData<List<QuoteEntry>> getQuotes() {
         return quotes;
+    }
+
+    public LiveData<List<QuoteEntry>> getQuotesByTitle(String bookTitle) {
+        QuoteDatabase database = QuoteDatabase.getInstance(this.getApplication());
+        return database.QuoteDao().loadQuoteByTitle(bookTitle);
     }
 }
