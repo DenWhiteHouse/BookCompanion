@@ -4,12 +4,16 @@ import android.app.LoaderManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,6 +46,7 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
     private static final int DEFAULT_QUOTE_ID = -1;
     // Constant for default task id to be used when not in update mode
     private static  Boolean ON_UPDATEMODE =false;
+    public Boolean mQuotehasChanged = false;
     // Constant for logging
     private static final String TAG = AddQuoteActivity.class.getSimpleName();
     private int mQuoteID = DEFAULT_QUOTE_ID;
@@ -138,6 +143,24 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
         ON_UPDATEMODE=true;
         mFixedTitleForUpdateView.setText(quote.getBookTitle());
         mFixedTitleForUpdateView.setVisibility(View.VISIBLE);
+        // Add a text Watche to check for changes
+        mQuoteContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mQuotehasChanged=true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
     }
 
@@ -202,6 +225,40 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
             return false;
         }
         return true;
+    }
+
+    //Check if the User has made changes and alert the user before leaving the activity
+    @Override
+    public void onBackPressed() {
+        if (!mQuotehasChanged) {
+            super.onBackPressed();
+            return;
+        }
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                };
+
+        // for the postivie and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Keep editing" button, so dismiss the dialog
+                // and continue editing the fruit.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
 
