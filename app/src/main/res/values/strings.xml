@@ -2,8 +2,8 @@
     <string name="app_name">Book Companion</string>
     <string name="current_raedings_message">you are currently reading</string>
     <string name="add_new_book">Add a new Book</string>
-    <string name="add_new_quote">Add a new Track</string>
-    <string name="add_new_track">Add a new Quote</string>
+    <string name="add_new_quote">Add a new Quote</string>
+    <string name="add_new_track">Add a new Track</string>
 
     <string name="add_book_activity_title">Add Book</string>
 
@@ -63,6 +63,16 @@
     <string name="keep">Keep</string>
     <string name="discard">Discard</string>
     <string name="itemUpdated">"Reading Track Updated</string>
+
+    <string name="selectBook">"Select Book</string>
+    <string name="insertQuote">"Insert Quote</string>
+    <string name="insertQuotehint">"insert your quote here</string>
+    <string name="saveQuote">"Save Quote</string>
+    <string name="updateQuote">"Update Quote</string>
+    <string name="Add_Quote">"Add Quote</string>
+    <string name="quoteBook">"Book Title</string>
+    <string name="quoteDescription">"Quote Content</string>
+    <string name="myQuotes">"My Quotes</string>
 
 
 

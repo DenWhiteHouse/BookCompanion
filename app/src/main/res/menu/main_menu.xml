@@ -11,4 +11,9 @@
         android:title="@string/my_reading_tracks"
         />
 
+    <item
+        android:id="@+id/my_quotes"
+        android:title="@string/myQuotes"
+        />
+
 </menu>

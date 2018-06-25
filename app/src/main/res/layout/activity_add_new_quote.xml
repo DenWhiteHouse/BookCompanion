@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padding_large"
+        android:paddingTop="@dimen/padding_large"
+        android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/selectBook"
+        android:textSize="@dimen/readin_track_info"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/bookTitle_quotespinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/insertQuote"
+            android:textSize="@dimen/readin_track_info"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/quoteContent"
+            android:layout_width="match_parent"
+            android:layout_marginRight="@dimen/padding_large"
+            android:layout_height="wrap_content"
+            android:hint="@string/insertQuotehint" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_large"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/saveQuotekButton"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/saveQuote" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

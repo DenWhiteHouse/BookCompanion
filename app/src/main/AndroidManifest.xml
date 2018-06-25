@@ -50,6 +50,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.bookcompanion.MyReadingTracks"/>
         </activity>
+
+        <activity
+            android:name=".MyQuotes"
+            android:label="@string/myQuotes">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bookcompanion.MyQuotes"/>
+        </activity>
+
+        <activity
+            android:name=".BookQuoteFeature.AddQuoteActivity"
+            android:label="@string/add_new_quote">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.bookcompanion.BookQuoteFeature.AddQuoteActivity"/>
+        </activity>
+
         <activity
             android:name=".EditReadingTrack"
             android:label="@string/editReadingTrack">

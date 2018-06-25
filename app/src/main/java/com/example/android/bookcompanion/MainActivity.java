@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.android.bookcompanion.BookQuoteFeature.AddQuoteActivity;
 import com.example.android.bookcompanion.data.AddBook;
 
 public class MainActivity extends AppCompatActivity  {
@@ -41,6 +42,13 @@ public class MainActivity extends AppCompatActivity  {
                 startActivity(new Intent(MainActivity.this,AddReadingTrack.class));
             }
         });
+
+        mAddQuoteFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddQuoteActivity.class));
+            }
+        });
     }
 
     @Override
@@ -57,6 +65,9 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             case R.id.my_reading_tracks:
                 startActivity(new Intent(this,MyReadingTracks.class));
+                return true;
+            case R.id.my_quotes:
+                startActivity(new Intent(this,MyQuotes.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
