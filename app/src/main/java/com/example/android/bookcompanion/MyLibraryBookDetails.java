@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyLibraryBookDetails extends AppCompatActivity implements QuoteAdapter.ItemClickListener {
+public class MyLibraryBookDetails extends AppCompatActivity{
     @BindView(R.id.bookTitleLibrary) TextView mBookTitleTV;
     @BindView(R.id.bookAuthorLibrary) TextView mBookAuthorTV;
     @BindView(R.id.bookPagesLibrary) TextView mBookPageTV;
@@ -117,7 +117,7 @@ public class MyLibraryBookDetails extends AppCompatActivity implements QuoteAdap
         mRecyclerViewQuotes.addItemDecoration(decorationQuotes);
 
         // Initialize the adapter and attach it to the RecyclerView
-        mAdapterQuotes = new QuoteAdapter(this, this);
+        mAdapterQuotes = new QuoteAdapter(this);
         mRecyclerViewQuotes.setAdapter(mAdapterQuotes);
 
 
@@ -195,10 +195,4 @@ public class MyLibraryBookDetails extends AppCompatActivity implements QuoteAdap
             }
         });
     }
-
-    @Override
-    public void onItemClickListener(int itemId) {
-        Toast.makeText(MyLibraryBookDetails.this,"prova",Toast.LENGTH_SHORT).show();
-    }
-
 }

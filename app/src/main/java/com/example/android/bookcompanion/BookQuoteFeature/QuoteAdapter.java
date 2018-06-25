@@ -6,23 +6,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.bookcompanion.MyQuotes;
 import com.example.android.bookcompanion.R;
 
 import java.util.List;
 
 public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHolder> {
-    // Member variable to handle item clicks
-    final private ItemClickListener mItemClickListener;
     // Class variables for the List that holds task data and the Context
     private List<QuoteEntry> mQuoteEntries;
     private Context mContext;
 
-    public QuoteAdapter(Context context, ItemClickListener listener) {
+    public QuoteAdapter(Context context) {
         mContext = context;
-        mItemClickListener = listener;
     }
 
     @Override
@@ -39,10 +39,16 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
         // Determine the values of the wanted data
         QuoteEntry quoteEntry = mQuoteEntries.get(position);
         String quoteContent = quoteEntry.getQuoteContent();
-        String quoteBookTitle = quoteEntry.getBookTitle();
+        final String quoteBookTitle = quoteEntry.getBookTitle();
         //Set values
         holder.quoteDescription.setText(quoteContent);
         holder.bookTitleQuote.setText(quoteBookTitle);
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,quoteBookTitle,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -67,11 +73,12 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
     }
 
     // Inner class for creating ViewHolders
-    class QuoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class QuoteViewHolder extends RecyclerView.ViewHolder{
 
         // Class variables for the task description and priority TextViews
         TextView bookTitleQuote;
         TextView quoteDescription;
+        Button editButton;
 
 
         /**
@@ -84,14 +91,9 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
 
             bookTitleQuote = itemView.findViewById(R.id.QuoteBookTitle);
             quoteDescription = itemView.findViewById(R.id.quoteContent);
-            itemView.setOnClickListener(this);
+            editButton =itemView.findViewById(R.id.editQuoteButton);
         }
 
-        @Override
-        public void onClick(View view) {
-            int elementId = mQuoteEntries.get(getAdapterPosition()).getId();
-            mItemClickListener.onItemClickListener(elementId);
-        }
     }
 
 }

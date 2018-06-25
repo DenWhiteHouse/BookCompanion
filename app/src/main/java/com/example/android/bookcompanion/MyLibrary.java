@@ -47,7 +47,6 @@ public class MyLibrary extends AppCompatActivity implements
                 String author = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_AUTH));
                 String imageUrl = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_IMAGE));
                 String pages = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_PAGES));
-                Toast.makeText(getApplicationContext(),"prova " + title,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MyLibrary.this,MyLibraryBookDetails.class);
                 intent.putExtra("BOOKTITLE",title);
                 intent.putExtra("IMAGEURL",imageUrl);

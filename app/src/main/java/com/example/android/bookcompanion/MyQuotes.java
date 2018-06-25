@@ -23,7 +23,7 @@ import java.util.List;
 
 import static android.support.v7.widget.RecyclerView.VERTICAL;
 
-public class MyQuotes extends AppCompatActivity implements QuoteAdapter.ItemClickListener {
+public class MyQuotes extends AppCompatActivity{
 
 
     // Constant for logging
@@ -49,7 +49,7 @@ public class MyQuotes extends AppCompatActivity implements QuoteAdapter.ItemClic
         mRecyclerView.addItemDecoration(decoration);
 
         // Initialize the adapter and attach it to the RecyclerView
-        mAdapter = new QuoteAdapter(this, this);
+        mAdapter = new QuoteAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
 
@@ -104,11 +104,4 @@ public class MyQuotes extends AppCompatActivity implements QuoteAdapter.ItemClic
             }
         });
     }
-
-    @Override
-    public void onItemClickListener(int itemId) {
-        Toast.makeText(MyQuotes.this,"prova",Toast.LENGTH_SHORT).show();
-    }
-
-
 }
