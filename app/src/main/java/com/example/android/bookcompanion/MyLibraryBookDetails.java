@@ -15,6 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +39,7 @@ public class MyLibraryBookDetails extends AppCompatActivity{
     @BindView(R.id.bookAuthorLibrary) TextView mBookAuthorTV;
     @BindView(R.id.bookPagesLibrary) TextView mBookPageTV;
     @BindView(R.id.bookImageLibrary) ImageView mBookImage;
-
+    @BindView(R.id.deleteBookButton) Button mDeleteButtonBook;
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
     // Member variables for the adapter and RecyclerView
@@ -161,6 +163,14 @@ public class MyLibraryBookDetails extends AppCompatActivity{
         mDbQuotes = QuoteDatabase.getInstance(getApplicationContext());
         setupViewModel(intent.getStringExtra("BOOKTITLE"));
 
+        //Set DELETE BUTTON CLICK LISTENER
+        mDeleteButtonBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteBook();
+            }
+        });
+
     }
 
     private void retrieveReadingTracks(String bookTitle) {
@@ -194,5 +204,35 @@ public class MyLibraryBookDetails extends AppCompatActivity{
                 mAdapterQuotes.setQuotes(quoteEntries);
             }
         });
+    }
+
+    private void deleteBook(){
+        DialogInterface.OnClickListener deleteBookButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getApplicationContext()," così cancella",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                };
+
+        // for the postivie and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.warning_delete_book);
+        builder.setPositiveButton(R.string.yesDelete, deleteBookButtonClickListener);
+        builder.setNegativeButton(R.string.dontDelete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Keep editing" button, so dismiss the dialog
+                // and continue editing the fruit.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 }
