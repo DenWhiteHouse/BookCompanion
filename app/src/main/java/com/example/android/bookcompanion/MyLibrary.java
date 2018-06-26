@@ -1,10 +1,12 @@
 package com.example.android.bookcompanion;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +49,10 @@ public class MyLibrary extends AppCompatActivity implements
                 String author = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_AUTH));
                 String imageUrl = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_IMAGE));
                 String pages = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_PAGES));
+                int ID= cursor.getInt(cursor.getColumnIndex(BookEntry._ID));
+                Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI,ID);
                 Intent intent = new Intent(MyLibrary.this,MyLibraryBookDetails.class);
+                intent.setData(currentBookUri);
                 intent.putExtra("BOOKTITLE",title);
                 intent.putExtra("IMAGEURL",imageUrl);
                 intent.putExtra("AUTHOR",author);

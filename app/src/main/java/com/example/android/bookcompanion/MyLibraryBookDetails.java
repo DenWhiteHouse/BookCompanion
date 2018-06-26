@@ -25,6 +25,7 @@ import com.example.android.bookcompanion.BookQuoteFeature.MyQuotesViewModel;
 import com.example.android.bookcompanion.BookQuoteFeature.QuoteAdapter;
 import com.example.android.bookcompanion.BookQuoteFeature.QuoteDatabase;
 import com.example.android.bookcompanion.BookQuoteFeature.QuoteEntry;
+import com.example.android.bookcompanion.database.BookContract;
 import com.example.android.bookcompanion.room.ReadingTrack;
 import com.example.android.bookcompanion.room.ReadingTrackDatabase;
 import com.squareup.picasso.Picasso;
@@ -49,6 +50,7 @@ public class MyLibraryBookDetails extends AppCompatActivity{
     private QuoteAdapter mAdapterQuotes;
     private ReadingTrackDatabase mDbReadingTracks;
     private QuoteDatabase mDbQuotes;
+    private Uri mCurrentBookUri;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class MyLibraryBookDetails extends AppCompatActivity{
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
+        mCurrentBookUri = intent.getData();
         setBookInfo(intent);
 
         // Set the RecyclerView for ReadingTracks
@@ -211,8 +214,9 @@ public class MyLibraryBookDetails extends AppCompatActivity{
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(getApplicationContext()," così cancella",Toast.LENGTH_SHORT).show();
-                        finish();
+                        int rowsDeleted = getContentResolver().delete(mCurrentBookUri,null , null);
+                            Toast.makeText(getApplicationContext(), " così cancella", Toast.LENGTH_SHORT).show();
+                            finish();
                     }
                 };
 
