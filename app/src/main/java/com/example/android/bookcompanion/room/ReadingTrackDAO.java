@@ -27,4 +27,7 @@ public interface ReadingTrackDAO {
 
     @Delete
     void delete(ReadingTrack readingTrack);
+
+    @Query("DELETE FROM readingtrack WHERE bookTitle = :bookTitle")
+    abstract void deleteTracksByBookTitle(String bookTitle);
 }

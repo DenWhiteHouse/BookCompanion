@@ -215,8 +215,27 @@ public class MyLibraryBookDetails extends AppCompatActivity{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int rowsDeleted = getContentResolver().delete(mCurrentBookUri,null , null);
-                            Toast.makeText(getApplicationContext(), " così cancella", Toast.LENGTH_SHORT).show();
+                        if(rowsDeleted != 0) {
+                            // Delete Book's Reading Tracks
+                            final String bookTitle= mBookTitleTV.getText().toString();
+                            Thread t = new Thread(new Runnable() {
+                                public void run() {
+                                    mDbReadingTracks.getInstance(getApplicationContext()).getReadingtrackDao().deleteTracksByBookTitle(bookTitle);
+                                }
+                            });
+                            t.start();
+
+                            //Delete Book's Quotes
+                            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mDbQuotes.QuoteDao().deleteQuotesByBookTitle(bookTitle);
+                                }
+                            });
+
+                            Toast.makeText(getApplicationContext(), R.string.bookDeleted, Toast.LENGTH_SHORT).show();
                             finish();
+                        }
                     }
                 };
 

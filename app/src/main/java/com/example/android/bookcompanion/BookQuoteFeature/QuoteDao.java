@@ -31,4 +31,7 @@ public interface QuoteDao {
     @Delete
     void deleteQuote(QuoteEntry quoteEntry);
 
+    @Query("DELETE FROM quote WHERE bookTitle = :bookTitle")
+    abstract void deleteQuotesByBookTitle(String bookTitle);
+
 }

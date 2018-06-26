@@ -80,5 +80,6 @@
     and Quotes. Are you sure you want to Continue?</string>
     <string name="yesDelete">YES, DELETE IT</string>
     <string name="dontDelete">NO, KEEP IT</string>
+    <string name="bookDeleted">Book Deleted</string>
 
 </resources>
