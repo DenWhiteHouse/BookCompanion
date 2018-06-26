@@ -81,7 +81,13 @@ public class AddBook extends AppCompatActivity {
                 values.put(BookContract.BookEntry.COL_BOOK_AUTH,mAuthor);
                 values.put(BookContract.BookEntry.COL_BOOK_PAGES,mPages);
                 Uri newUri = getContentResolver().insert(BookContract.BookEntry.CONTENT_URI, values);
-                Toast.makeText(AddBook.this, R.string.book_saved, Toast.LENGTH_SHORT).show();
+                if(newUri == null){
+                    Toast.makeText(AddBook.this, R.string.notUniqueBook, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(AddBook.this, R.string.book_saved, Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
     }

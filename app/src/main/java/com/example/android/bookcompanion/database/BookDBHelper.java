@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class BookDBHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = BookDBHelper.class.getSimpleName();
 
-    private static final String DATABASE_NAME = "mybooks.db";
+    private static final String DATABASE_NAME = "mylibrary.db";
     private static final int DATABASE_VERSION = 1;
 
     public BookDBHelper(Context context) {
@@ -20,7 +20,7 @@ public class BookDBHelper extends SQLiteOpenHelper {
         String SQL_CREATE_FRUITS_TABLE = "CREATE TABLE " + BookContract.BookEntry.TABLE_NAME + " ("
                 + BookContract.BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + BookContract.BookEntry.COL_BOOK_IMAGE + " TEXT NOT NULL, "
-                + BookContract.BookEntry.COL_BOOK_NAME + " TEXT NOT NULL, "
+                + BookContract.BookEntry.COL_BOOK_NAME + " TEXT NOT NULL UNIQUE, "
                 + BookContract.BookEntry.COL_BOOK_AUTH + " TEXT NOT NULL, "
                 + BookContract.BookEntry.COL_BOOK_PAGES + " INTEGER NOT NULL, "
                 + BookContract.BookEntry.COL_BOOK_START_DATE + " INTEGER, "
@@ -32,6 +32,8 @@ public class BookDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // The database is still at version 1, so there's nothing to do be done here.
+        // Drop older table if existed and create
+        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_NAME);
+        onCreate(db);
     }
 }

@@ -23,6 +23,7 @@
     <string name="Save_book">save in my library</string>
     <string name="my_library">My Library</string>
     <string name="book_saved">Book Saved</string>
+    <string name="notUniqueBook">This book is already in your library</string>
 
     <string name="save_readingTrack">Save Reading Track </string>
     <string name="info_readingTrack">Insert Reading Track Info </string>

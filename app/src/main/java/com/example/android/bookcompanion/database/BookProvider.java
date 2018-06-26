@@ -104,8 +104,6 @@ public class BookProvider extends ContentProvider {
             pages = 0;
         }
 
-        //todo: ADD STRATING DATE AND END DATE
-
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
         long id = database.insert(BookContract.BookEntry.TABLE_NAME, null, values);
         if (id == -1) {
