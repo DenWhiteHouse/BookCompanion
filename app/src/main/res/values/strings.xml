@@ -83,4 +83,9 @@
     <string name="dontDelete">NO, KEEP IT</string>
     <string name="bookDeleted">Book Deleted</string>
 
+
+    <string name="widget_title">Quote</string>
+    <string name="widget_message">Insert your book quote here</string>
+    <string name="widget_save_button">Save a Book Quote</string>
+
 </resources>
