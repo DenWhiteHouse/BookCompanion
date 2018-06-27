@@ -3,6 +3,7 @@ package com.example.android.bookcompanion.BookQuoteFeature;
 import android.app.LoaderManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,12 +27,15 @@ import com.example.android.bookcompanion.AppExecutors;
 import com.example.android.bookcompanion.BookCursorAdapter;
 import com.example.android.bookcompanion.R;
 import com.example.android.bookcompanion.database.BookContract;
+import com.example.android.bookcompanion.widget.WidgetService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static java.security.AccessController.getContext;
 
 public class AddQuoteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     @BindView(R.id.bookTitle_quotespinner) Spinner bookTitleSpinner;
@@ -109,8 +113,8 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
     }
 
     public void onSaveButtonClicked() {
-        String quoteContent = mQuoteContent.getText().toString();
-        String quoteTitle;
+        final String quoteContent = mQuoteContent.getText().toString();
+        final String quoteTitle;
         if(!ON_UPDATEMODE){
             quoteTitle = bookTitleSpinner.getSelectedItem().toString();
         }
@@ -124,6 +128,7 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
             public void run() {
                 if (mQuoteID == DEFAULT_QUOTE_ID) {
                         mDb.QuoteDao().insertQuote(quote);
+                        updateWidget(getApplicationContext(),quoteTitle +":" +"\n" + quoteContent);
                 } else {
                         quote.setId(mQuoteID);
                         mDb.QuoteDao().updateQuote(quote);
@@ -260,6 +265,11 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void updateWidget(Context context, String quote){
+        //Send and Intent to WidgetService
+        WidgetService.widgetIntent(context, quote);
     }
 }
 

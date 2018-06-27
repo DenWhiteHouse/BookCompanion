@@ -31,27 +31,38 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WidgetProvider extends AppWidgetProvider {
-    private static QuoteDatabase mDb;
-    private static String mLastQuoteTitle,mLastQuoteContent;
+    public static String WIDGETSERVICE = "WIDGETSERVICE";
+    static String mQuoteContent;
 
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+        // Use the XML file to build the remoteView for the Widger
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_view);
+        remoteViews.setTextViewText(R.id.widget_body_TV, mQuoteContent);
+        // UPDATE THE WIDGET
+        appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
+    }
+
+    public static void updateWidgtes(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            /* //todo DEFINE A SERVICE FOR ACCESSING THE DB
-            mDb = QuoteDatabase.getInstance(context);
-            getQuoteInfo();
-            */
-            RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget_view);
-            remoteView.setTextViewText(R.id.widget_body_TV, "prova");
-            appWidgetManager.updateAppWidget(appWidgetId, remoteView);
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
-    private static void getQuoteInfo(){
-        LiveData<List<QuoteEntry>> quotes = mDb.QuoteDao().loadAllQuotes();
-        List<QuoteEntry> quoteList =quotes.getValue();
-        mLastQuoteContent = quoteList.get(quoteList.size()-1).getQuoteContent();
-        mLastQuoteTitle = quoteList.get(quoteList.size()-1).getBookTitle();
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, WidgetProvider.class));
+        final String action = intent.getAction();
+
+        if (action.equals("android.appwidget.action.APPWIDGET_UPDATE")) {
+            mQuoteContent = intent.getExtras().getString(WIDGETSERVICE);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_body_TV);
+            //In case of multiple widgtes
+            WidgetProvider.updateWidgtes(context, appWidgetManager, appWidgetIds);
+            super.onReceive(context, intent);
+        }
     }
+
+
 
 }

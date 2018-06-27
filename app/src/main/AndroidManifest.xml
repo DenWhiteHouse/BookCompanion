@@ -105,6 +105,13 @@
                 android:resource="@xml/widget_info_provider" />
         </receiver>
 
+        <service
+            android:name=".widget.WidgetService"
+            >
+        </service>
+
+
+
     </application>
 
 </manifest>
