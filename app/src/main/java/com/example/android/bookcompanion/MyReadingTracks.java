@@ -105,9 +105,9 @@ public class MyReadingTracks extends AppCompatActivity {
     }
 
     private void retrieveTasks() {
-        Log.d(TAG, "Actively retrieving the tasks from the DataBase");
-        LiveData<List<ReadingTrack>> tasks = mDb.getReadingtrackDao().getAllReadingTrack();
-        tasks.observe(this, new Observer<List<ReadingTrack>>() {
+        Log.d(TAG, "Actively retrieving the quotes from the DataBase");
+        LiveData<List<ReadingTrack>> tracks = mDb.getReadingtrackDao().getAllReadingTrack();
+        tracks.observe(this, new Observer<List<ReadingTrack>>() {
             @Override
             public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
                 Log.d(TAG, "Receiving database update from LiveData");

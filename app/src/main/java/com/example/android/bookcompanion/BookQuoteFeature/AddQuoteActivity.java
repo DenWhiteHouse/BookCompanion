@@ -128,9 +128,10 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
                         quote.setId(mQuoteID);
                         mDb.QuoteDao().updateQuote(quote);
                 }
-                finish();
             }
         });
+        Toast.makeText(getApplicationContext(),R.string.quoteSaved,Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void populateUI(QuoteEntry quote) {
