@@ -123,6 +123,9 @@ public class MyReadingTracks extends AppCompatActivity {
             public void onChanged(@Nullable List<ReadingTrack> readingTracks) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mAdapter.setTasks(readingTracks);
+                if (readingTracks.isEmpty()) {
+                    setContentView(R.layout.empty_view);
+                }
             }
         });
     }

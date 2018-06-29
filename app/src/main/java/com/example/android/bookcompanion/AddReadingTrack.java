@@ -270,11 +270,17 @@ public class AddReadingTrack extends AppCompatActivity implements GoogleApiClien
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
        mBookCursor = mCursorAdapter.getCursor();
-       mBookTitleSpinnerArray =  setSpinnerTitleArray();
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.support_simple_spinner_dropdown_item,mBookTitleSpinnerArray);
-        stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        bookTitleSpinner.setAdapter(stringArrayAdapter);
+       if(mBookCursor.getCount() == 0){
+           Toast.makeText(getApplicationContext(),R.string.warning_insert_a_book,Toast.LENGTH_LONG).show();
+           finish();
+       }
+       else {
+           mBookTitleSpinnerArray = setSpinnerTitleArray();
+           ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
+                   this, R.layout.support_simple_spinner_dropdown_item, mBookTitleSpinnerArray);
+           stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+           bookTitleSpinner.setAdapter(stringArrayAdapter);
+       }
     }
 
     @Override

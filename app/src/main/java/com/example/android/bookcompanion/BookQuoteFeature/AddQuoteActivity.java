@@ -191,6 +191,10 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
         mBookCursor = mCursorAdapter.getCursor();
+        if(mBookCursor.getCount() == 0){
+            Toast.makeText(getApplicationContext(),R.string.warning_insert_a_book,Toast.LENGTH_LONG).show();
+            finish();
+        }
         mBookTitleSpinnerArray =  setSpinnerTitleArray();
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
                 this,R.layout.support_simple_spinner_dropdown_item,mBookTitleSpinnerArray);

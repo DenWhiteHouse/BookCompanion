@@ -1,5 +1,6 @@
 package com.example.android.bookcompanion;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
@@ -101,6 +102,9 @@ public class MyQuotes extends AppCompatActivity{
             public void onChanged(@Nullable List<QuoteEntry> quoteEntries) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mAdapter.setQuotes(quoteEntries);
+                if(quoteEntries.isEmpty()){
+                        setContentView(R.layout.empty_view);
+                }
             }
         });
     }

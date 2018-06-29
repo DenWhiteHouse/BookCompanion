@@ -92,5 +92,8 @@
     <string name="signing_in">Signing In...</string>
     <string name="checking_state">Checking State...</string>
 
+    <string name="emqpty_view">No item to show</string>
+    <string name="warning_insert_a_book">You need to insert a book first</string>
+
 
 </resources>

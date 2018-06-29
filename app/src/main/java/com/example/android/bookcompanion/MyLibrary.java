@@ -82,6 +82,10 @@ public class MyLibrary extends AppCompatActivity implements
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
+        if(data.getCount() == 0){
+            // if the are no book in the library, set the EmptyView
+            setContentView(R.layout.empty_view);
+        }
     }
 
     @Override
