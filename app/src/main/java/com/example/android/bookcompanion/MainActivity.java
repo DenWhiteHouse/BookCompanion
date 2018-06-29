@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.example.android.bookcompanion.BookQuoteFeature.AddQuoteActivity;
 import com.example.android.bookcompanion.data.AddBook;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,12 +25,23 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity  {
     FloatingActionButton mAddBookFAB,mAddTrackFAB,mAddQuoteFAB;
     private static final int BOOK_LOADER = 0;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        //Inizialize AdTest
+        MobileAds.initialize(this, getString(R.string.idclient));
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
+
 
         mAddBookFAB =findViewById(R.id.AddNewBookFAB);
         mAddTrackFAB =findViewById(R.id.AddNewTrackFAB);

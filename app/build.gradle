@@ -15,11 +15,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string","placekey", placeskey
-            resValue "string","idclient", idclient
+            resValue "string","idclient", ADMobClient
         }
         debug{
             resValue "string","placekey", placeskey
-            resValue "string","idclient", idclient
+            resValue "string","idclient", ADMobClient
         }
     }
 }
@@ -46,4 +46,5 @@ dependencies {
     implementation "com.google.android.gms:play-services-places:15.0.1"
     implementation "com.google.android.gms:play-services-location:15.0.1"
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'com.google.android.gms:play-services-ads:15.0.1'
 }
