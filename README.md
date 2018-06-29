@@ -1,7 +1,7 @@
 # BookCompanion
 Final CapStoneProject BookCompanion for Android Advance Udacity Nanodegree
 
- [Screenshot](IMG_20180629_230422.jpg)
+ [Screenshot](BookCompanion_Screenshoot.jpg)
 
 This project has been the final test fot getting the Udacity Advanced Android Development Nanodegree.
 
