@@ -30,6 +30,8 @@
     <Spinner
         android:id="@+id/bookTitle_quotespinner"
         android:layout_width="wrap_content"
+        android:focusedByDefault="true"
+        android:nextFocusDown="@id/quoteContent"
         android:layout_height="wrap_content" />
 
         <TextView
@@ -42,6 +44,7 @@
 
         <EditText
             android:id="@+id/quoteContent"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_marginRight="@dimen/padding_large"
             android:layout_height="wrap_content"
@@ -58,6 +61,7 @@
         <Button
             android:id="@+id/saveQuotekButton"
             android:textAlignment="center"
+            android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/saveQuote" />

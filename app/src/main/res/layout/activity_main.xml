@@ -7,25 +7,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/padding_large">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
+        android:orientation="vertical">
 
         <LinearLayout
             android:paddingLeft="@dimen/padding_large"
             android:paddingTop="@dimen/padding_medium"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,6 +27,7 @@
                     android:id="@+id/AddNewBookFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
                     android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
@@ -58,6 +50,7 @@
                     android:id="@+id/AddNewTrackFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
                     android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
@@ -80,6 +73,7 @@
                     android:id="@+id/AddNewQuoteFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
                     android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
@@ -105,13 +99,13 @@
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:focusable="true"
                 android:layout_gravity="center"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/idclient">
             </com.google.android.gms.ads.AdView>
-
         </LinearLayout>
 
     </LinearLayout>

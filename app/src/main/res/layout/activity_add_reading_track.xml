@@ -20,6 +20,8 @@
 
         <Spinner
             android:id="@+id/bookTitle_spinner"
+            android:focusedByDefault="true"
+            android:nextFocusDown="@id/LocationReadingtrackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -30,12 +32,14 @@
 
             <Button
                 android:id="@+id/LocationReadingtrackButton"
+                android:nextFocusDown="@id/LocationReadingtrack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/location_readingTrack" />
 
             <EditText
             android:id="@+id/LocationReadingtrack"
+                android:nextFocusDown="@id/DateReadingTrack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/no_location" />
@@ -44,6 +48,7 @@
 
         <EditText
             android:id="@+id/DateReadingTrack"
+            android:nextFocusDown="@id/PagesReadingTrack"
             android:inputType="date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,6 +65,7 @@
             android:textSize="@dimen/read_pages"/>
         <EditText
             android:id="@+id/PagesReadingTrack"
+            android:nextFocusDown="@id/saveReadingTrackButton"
             android:inputType="number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
