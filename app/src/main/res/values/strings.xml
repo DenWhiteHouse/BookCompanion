@@ -88,5 +88,9 @@
     <string name="widget_title">Your last favourite Quote</string>
     <string name="noQuoteWidget">No quote to show</string>
 
+    <string name="login">Login</string>
+    <string name="signing_in">Signing In...</string>
+    <string name="checking_state">Checking State...</string>
+
 
 </resources>

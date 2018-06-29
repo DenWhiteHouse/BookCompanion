@@ -15,9 +15,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string","placekey", placeskey
+            resValue "string","idclient", idclient
         }
         debug{
             resValue "string","placekey", placeskey
+            resValue "string","idclient", idclient
         }
     }
 }
