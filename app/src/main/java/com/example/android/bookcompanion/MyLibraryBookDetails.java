@@ -25,7 +25,6 @@ import com.example.android.bookcompanion.BookQuoteFeature.MyQuotesViewModel;
 import com.example.android.bookcompanion.BookQuoteFeature.QuoteAdapter;
 import com.example.android.bookcompanion.BookQuoteFeature.QuoteDatabase;
 import com.example.android.bookcompanion.BookQuoteFeature.QuoteEntry;
-import com.example.android.bookcompanion.database.BookContract;
 import com.example.android.bookcompanion.room.ReadingTrack;
 import com.example.android.bookcompanion.room.ReadingTrackDatabase;
 import com.squareup.picasso.Picasso;
@@ -35,14 +34,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyLibraryBookDetails extends AppCompatActivity{
-    @BindView(R.id.bookTitleLibrary) TextView mBookTitleTV;
-    @BindView(R.id.bookAuthorLibrary) TextView mBookAuthorTV;
-    @BindView(R.id.bookPagesLibrary) TextView mBookPageTV;
-    @BindView(R.id.bookImageLibrary) ImageView mBookImage;
-    @BindView(R.id.deleteBookButton) Button mDeleteButtonBook;
+public class MyLibraryBookDetails extends AppCompatActivity {
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
+    @BindView(R.id.bookTitleLibrary)
+    TextView mBookTitleTV;
+    @BindView(R.id.bookAuthorLibrary)
+    TextView mBookAuthorTV;
+    @BindView(R.id.bookPagesLibrary)
+    TextView mBookPageTV;
+    @BindView(R.id.bookImageLibrary)
+    ImageView mBookImage;
+    @BindView(R.id.deleteBookButton)
+    Button mDeleteButtonBook;
     // Member variables for the adapter and RecyclerView
     private RecyclerView mRecyclerViewReadingTracks;
     private RecyclerView mRecyclerViewQuotes;
@@ -99,14 +103,18 @@ public class MyLibraryBookDetails extends AppCompatActivity{
                         t.start();
                         dialog.cancel();
                         Toast.makeText(MyLibraryBookDetails.this, "item Deleted ", Toast.LENGTH_SHORT).show();
-                    };
+                    }
+
+                    ;
                 });
                 builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
                         mAdapterReadingTracks.notifyItemChanged(viewHolder.getAdapterPosition());
                         dialog.cancel();
-                    };
+                    }
+
+                    ;
                 });
                 builder.show();
             }
@@ -157,7 +165,9 @@ public class MyLibraryBookDetails extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int arg1) {
                         mAdapterQuotes.notifyItemChanged(viewHolder.getAdapterPosition());
                         dialog.cancel();
-                    };
+                    }
+
+                    ;
                 });
                 builder.show();
             }
@@ -189,7 +199,7 @@ public class MyLibraryBookDetails extends AppCompatActivity{
     }
 
 
-    private void setBookInfo(Intent intent){
+    private void setBookInfo(Intent intent) {
         mBookTitleTV.setText(intent.getStringExtra("BOOKTITLE"));
         mBookAuthorTV.setText(intent.getStringExtra("AUTHOR"));
         mBookPageTV.setText(intent.getStringExtra("PAGES"));
@@ -209,15 +219,15 @@ public class MyLibraryBookDetails extends AppCompatActivity{
         });
     }
 
-    private void deleteBook(){
+    private void deleteBook() {
         DialogInterface.OnClickListener deleteBookButtonClickListener =
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int rowsDeleted = getContentResolver().delete(mCurrentBookUri,null , null);
-                        if(rowsDeleted != 0) {
+                        int rowsDeleted = getContentResolver().delete(mCurrentBookUri, null, null);
+                        if (rowsDeleted != 0) {
                             // Delete Book's Reading Tracks
-                            final String bookTitle= mBookTitleTV.getText().toString();
+                            final String bookTitle = mBookTitleTV.getText().toString();
                             Thread t = new Thread(new Runnable() {
                                 public void run() {
                                     mDbReadingTracks.getInstance(getApplicationContext()).getReadingtrackDao().deleteTracksByBookTitle(bookTitle);

@@ -1,4 +1,5 @@
 package com.example.android.bookcompanion.data;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

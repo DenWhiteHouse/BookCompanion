@@ -5,7 +5,6 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public interface ReadingTrackDAO {
     LiveData<List<ReadingTrack>> getAllReadingTrack();
 
     @Query("SELECT * FROM readingtrack WHERE bookTitle = :booktitle")
-    LiveData<List<ReadingTrack>> getByTitle (String booktitle);
+    LiveData<List<ReadingTrack>> getByTitle(String booktitle);
 
     @Insert
     void insertReadingTrack(ReadingTrack readingTracks);

@@ -1,18 +1,15 @@
 package com.example.android.bookcompanion.data;
 
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Book implements Parcelable
-{
+import java.util.List;
 
-    @SerializedName("items")
-    @Expose
-    private List<Item> items = null;
+public class Book implements Parcelable {
+
     public final static Parcelable.Creator<Book> CREATOR = new Creator<Book>() {
 
 
@@ -27,8 +24,10 @@ public class Book implements Parcelable
             return (new Book[size]);
         }
 
-    }
-            ;
+    };
+    @SerializedName("items")
+    @Expose
+    private List<Item> items = null;
 
     protected Book(Parcel in) {
         in.readList(this.items, (com.example.android.bookcompanion.data.Item.class.getClassLoader()));

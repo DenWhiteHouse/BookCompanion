@@ -1,6 +1,5 @@
 package com.example.android.bookcompanion;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
@@ -22,9 +21,7 @@ import com.example.android.bookcompanion.BookQuoteFeature.QuoteEntry;
 
 import java.util.List;
 
-import static android.support.v7.widget.RecyclerView.VERTICAL;
-
-public class MyQuotes extends AppCompatActivity{
+public class MyQuotes extends AppCompatActivity {
 
 
     // Constant for logging
@@ -80,13 +77,15 @@ public class MyQuotes extends AppCompatActivity{
                         Toast.makeText(MyQuotes.this, "item Deleted ", Toast.LENGTH_SHORT).show();
                     }
                 });
-                        builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int arg1) {
-                                mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
-                                dialog.cancel();
-                            };
-                        });
+                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        dialog.cancel();
+                    }
+
+                    ;
+                });
                 builder.show();
             }
         }).attachToRecyclerView(mRecyclerView);
@@ -102,8 +101,8 @@ public class MyQuotes extends AppCompatActivity{
             public void onChanged(@Nullable List<QuoteEntry> quoteEntries) {
                 Log.d(TAG, "Updating list of tasks from LiveData in ViewModel");
                 mAdapter.setQuotes(quoteEntries);
-                if(quoteEntries.isEmpty()){
-                        setContentView(R.layout.empty_view);
+                if (quoteEntries.isEmpty()) {
+                    setContentView(R.layout.empty_view);
                 }
             }
         });

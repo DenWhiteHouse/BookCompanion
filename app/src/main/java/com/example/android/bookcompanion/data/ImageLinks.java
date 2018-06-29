@@ -2,19 +2,12 @@ package com.example.android.bookcompanion.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ImageLinks implements Parcelable
-{
+public class ImageLinks implements Parcelable {
 
-    @SerializedName("smallThumbnail")
-    @Expose
-    private String smallThumbnail;
-    @SerializedName("thumbnail")
-    @Expose
-    private String thumbnail;
     public final static Parcelable.Creator<ImageLinks> CREATOR = new Creator<ImageLinks>() {
 
 
@@ -29,8 +22,13 @@ public class ImageLinks implements Parcelable
             return (new ImageLinks[size]);
         }
 
-    }
-            ;
+    };
+    @SerializedName("smallThumbnail")
+    @Expose
+    private String smallThumbnail;
+    @SerializedName("thumbnail")
+    @Expose
+    private String thumbnail;
 
     protected ImageLinks(Parcel in) {
         this.smallThumbnail = ((String) in.readValue((String.class.getClassLoader())));

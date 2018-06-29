@@ -5,11 +5,11 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class BookContract {
-    private BookContract(){}
-
     public static final String CONTENT_AUTHORITY = "com.example.android.bookcompanion.books";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String PATH_BOOKS = "books";
+    private BookContract() {
+    }
 
     public static final class BookEntry implements BaseColumns {
         //URI AND MIME
@@ -28,6 +28,6 @@ public class BookContract {
         public final static String COL_BOOK_AUTH = "author";
         public final static String COL_BOOK_PAGES = "pages";
         public final static String COL_BOOK_START_DATE = "startdate";
-        public final static String COL_BOOK_END_DATE= "enddate";
+        public final static String COL_BOOK_END_DATE = "enddate";
     }
 }

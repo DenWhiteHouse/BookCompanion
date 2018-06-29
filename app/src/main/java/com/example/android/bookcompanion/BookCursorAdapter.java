@@ -6,12 +6,9 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.bookcompanion.database.BookContract;
 import com.squareup.picasso.Picasso;
@@ -33,7 +30,7 @@ public class BookCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         final long id;
-        id =cursor.getLong(cursor.getColumnIndex(BookContract.BookEntry._ID));
+        id = cursor.getLong(cursor.getColumnIndex(BookContract.BookEntry._ID));
         ImageView bookImage = view.findViewById(R.id.bookImageLibrary);
         final TextView booktitle = view.findViewById(R.id.bookTitleLibrary);
         TextView bookauthor = view.findViewById(R.id.bookAuthorLibrary);

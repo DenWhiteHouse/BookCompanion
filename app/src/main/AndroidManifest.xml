@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.bookcompanion">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -17,7 +17,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/placekey"/>
+            android:value="@string/placekey" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -32,7 +32,7 @@
             android:label="@string/add_book_activity_title">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.data.AddBook"/>
+                android:value="com.example.android.bookcompanion.data.AddBook" />
         </activity>
 
         <activity
@@ -40,7 +40,7 @@
             android:label="@string/my_library">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.MyLibrary"/>
+                android:value="com.example.android.bookcompanion.MyLibrary" />
         </activity>
 
         <activity
@@ -48,7 +48,7 @@
             android:label="@string/my_reading_tracks">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.MyReadingTracks"/>
+                android:value="com.example.android.bookcompanion.MyReadingTracks" />
         </activity>
 
         <activity
@@ -56,7 +56,7 @@
             android:label="@string/myQuotes">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.MyQuotes"/>
+                android:value="com.example.android.bookcompanion.MyQuotes" />
         </activity>
 
         <activity
@@ -64,7 +64,7 @@
             android:label="@string/add_new_quote">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.BookQuoteFeature.AddQuoteActivity"/>
+                android:value="com.example.android.bookcompanion.BookQuoteFeature.AddQuoteActivity" />
         </activity>
 
         <activity
@@ -72,7 +72,7 @@
             android:label="@string/editReadingTrack">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.EditReadingTrack"/>
+                android:value="com.example.android.bookcompanion.EditReadingTrack" />
         </activity>
 
 
@@ -81,7 +81,7 @@
             android:label="@string/my_library_details">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.MyLibraryBookDetails"/>
+                android:value="com.example.android.bookcompanion.MyLibraryBookDetails" />
         </activity>
 
         <activity
@@ -89,7 +89,7 @@
             android:label="@string/add_readingTrack">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.bookcompanion.AddReadingTrack"/>
+                android:value="com.example.android.bookcompanion.AddReadingTrack" />
         </activity>
 
         <provider
@@ -97,18 +97,16 @@
             android:authorities="com.example.android.bookcompanion.books"
             android:exported="false" />
 
-        <receiver android:name=".widget.WidgetProvider" >
+        <receiver android:name=".widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info_provider" />
         </receiver>
 
-        <service
-            android:name=".widget.WidgetService"
-            >
-        </service>
+        <service android:name=".widget.WidgetService"></service>
 
     </application>
 

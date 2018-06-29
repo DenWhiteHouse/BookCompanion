@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,38 +38,42 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EditReadingTrack extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
-    // I have divided EDIT from ADD without using a FLAG for learning purposes
-@BindView(R.id.LocationReadingtrack) EditText mLocation;
-@BindView(R.id.DateReadingTrack)  EditText mDate;
-@BindView(R.id.PagesReadingTrack) EditText mPages;
-@BindView(R.id.updateReadingTrackButton)  Button mEditReadingTrackButton;
-@BindView(R.id.LocationReadingtrackButton) Button mLocationButton;
-@BindView(R.id.bookTitle_editview) TextView bookTitle;
-    private GoogleApiClient mApiClient;
-    ReadingTrackDatabase readingTrackDatabase;
-    ReadingTrack mReadingTrack;
+        GoogleApiClient.OnConnectionFailedListener {
+    public static final String TAG = EditReadingTrack.class.getSimpleName();
     private static final String DATE_FORMAT = "dd/MM/yyyy";
-    private static SimpleDateFormat dateFormatter;
-    private DatePickerDialog datePickerDialog ;
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 111;
     private static final int PLACE_PICKER_REQUEST = 1;
-    public static final String TAG = EditReadingTrack.class.getSimpleName();
+    private static SimpleDateFormat dateFormatter;
     public Boolean mTrackhasChanged = false;
-
-
-    public EditReadingTrack(){
-    }
-
+    // I have divided EDIT from ADD without using a FLAG for learning purposes
+    @BindView(R.id.LocationReadingtrack)
+    EditText mLocation;
+    @BindView(R.id.DateReadingTrack)
+    EditText mDate;
+    @BindView(R.id.PagesReadingTrack)
+    EditText mPages;
+    @BindView(R.id.updateReadingTrackButton)
+    Button mEditReadingTrackButton;
+    @BindView(R.id.LocationReadingtrackButton)
+    Button mLocationButton;
+    @BindView(R.id.bookTitle_editview)
+    TextView bookTitle;
+    ReadingTrackDatabase readingTrackDatabase;
+    ReadingTrack mReadingTrack;
+    private GoogleApiClient mApiClient;
+    private DatePickerDialog datePickerDialog;
     //Listener for EditView changes
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             mEditReadingTrackButton.setVisibility(View.VISIBLE);
-            mTrackhasChanged =true;
+            mTrackhasChanged = true;
             return false;
         }
     };
+
+    public EditReadingTrack() {
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,7 +92,7 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
         mLocation.setText(intent.getStringExtra("BOOKLOCATION"));
         mDate.setText(intent.getStringExtra("BOOKDATE"));
         mPages.setText(intent.getStringExtra("BOOKPAGES"));
-        mReadingTrack.setUid(intent.getIntExtra("ID",-1));
+        mReadingTrack.setUid(intent.getIntExtra("ID", -1));
         // Setting onChangeHelper
 
         mLocation.setOnTouchListener(mTouchListener);
@@ -99,7 +102,7 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
 
     // CLASS METHODS
 
-    public void setButtons(){
+    public void setButtons() {
         mEditReadingTrackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +129,7 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
         mDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(hasWindowFocus()){
+                if (hasWindowFocus()) {
                     datePickerDialog.show();
                 }
                 view.clearFocus();
@@ -142,7 +145,7 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
         });
     }
 
-    private void placePicking(){
+    private void placePicking() {
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(getApplicationContext(), getString(R.string.location_permission_notgranted), Toast.LENGTH_LONG).show();
@@ -179,10 +182,10 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
                 newDate.set(year, monthOfYear, dayOfMonth);
                 mDate.setText(dateFormatter.format(newDate.getTime()));
             }
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
-    private void setApiClient(){
+    private void setApiClient() {
         mApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -254,17 +257,17 @@ public class EditReadingTrack extends AppCompatActivity implements GoogleApiClie
         alertDialog.show();
     }
 
-    private boolean checkInputFields(){
-        if(mLocation.getText().toString().isEmpty()){
-            Toast.makeText(this,R.string.warning_empty_location,Toast.LENGTH_SHORT).show();
+    private boolean checkInputFields() {
+        if (mLocation.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.warning_empty_location, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(mDate.getText().toString().isEmpty()){
-            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+        if (mDate.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.warning_empty_title, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(mPages.getText().toString().isEmpty()){
-            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+        if (mPages.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.warning_empty_title, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -2,16 +2,11 @@ package com.example.android.bookcompanion.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Item implements Parcelable
-{
-    @SerializedName("volumeInfo")
-    @Expose
-    private VolumeInfo volumeInfo;
-
+public class Item implements Parcelable {
     public final static Parcelable.Creator<Item> CREATOR = new Creator<Item>() {
 
 
@@ -26,8 +21,10 @@ public class Item implements Parcelable
             return (new Item[size]);
         }
 
-    }
-            ;
+    };
+    @SerializedName("volumeInfo")
+    @Expose
+    private VolumeInfo volumeInfo;
 
     protected Item(Parcel in) {
         this.volumeInfo = ((VolumeInfo) in.readValue((VolumeInfo.class.getClassLoader())));

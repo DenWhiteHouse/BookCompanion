@@ -7,9 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/padding_large"
-        android:paddingTop="@dimen/padding_large"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/padding_large">
 
 
         <TextView
@@ -31,37 +31,39 @@
                 android:hint="@string/location_readingTrack" />
 
             <EditText
-            android:id="@+id/LocationReadingtrack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/no_location" />
+                android:id="@+id/LocationReadingtrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/no_location" />
 
         </LinearLayout>
 
         <EditText
             android:id="@+id/DateReadingTrack"
-            android:inputType="date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/date_readingTrack" />
+            android:hint="@string/date_readingTrack"
+            android:inputType="date" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Page_readingTrack"
-            android:textSize="@dimen/read_pages"/>
-        <EditText
-            android:id="@+id/PagesReadingTrack"
-            android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:hint="@string/Page_readingTrackhint"/>
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Page_readingTrack"
+                android:textSize="@dimen/read_pages" />
+
+            <EditText
+                android:id="@+id/PagesReadingTrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/Page_readingTrackhint"
+                android:inputType="number"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/updateReadingTrack"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

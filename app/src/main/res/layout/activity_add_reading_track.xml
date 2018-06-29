@@ -7,9 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/padding_large"
-        android:paddingTop="@dimen/padding_large"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/padding_large">
 
 
         <TextView
@@ -21,10 +21,10 @@
 
         <Spinner
             android:id="@+id/bookTitle_spinner"
-            android:focusedByDefault="true"
-            android:nextFocusDown="@id/LocationReadingtrackButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:focusedByDefault="true"
+            android:nextFocusDown="@id/LocationReadingtrackButton" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,46 +33,48 @@
 
             <Button
                 android:id="@+id/LocationReadingtrackButton"
-                android:nextFocusDown="@id/LocationReadingtrack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/location_readingTrack" />
+                android:hint="@string/location_readingTrack"
+                android:nextFocusDown="@id/LocationReadingtrack" />
 
             <EditText
-            android:id="@+id/LocationReadingtrack"
-                android:nextFocusDown="@id/DateReadingTrack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/no_location" />
+                android:id="@+id/LocationReadingtrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/no_location"
+                android:nextFocusDown="@id/DateReadingTrack" />
 
         </LinearLayout>
 
         <EditText
             android:id="@+id/DateReadingTrack"
-            android:nextFocusDown="@id/PagesReadingTrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/date_readingTrack"
             android:inputType="date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/date_readingTrack" />
+            android:nextFocusDown="@id/PagesReadingTrack" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Page_readingTrack"
-            android:textSize="@dimen/read_pages"/>
-        <EditText
-            android:id="@+id/PagesReadingTrack"
-            android:nextFocusDown="@id/saveReadingTrackButton"
-            android:inputType="number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:hint="@string/Page_readingTrackhint"/>
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Page_readingTrack"
+                android:textSize="@dimen/read_pages" />
+
+            <EditText
+                android:id="@+id/PagesReadingTrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/Page_readingTrackhint"
+                android:inputType="number"
+                android:nextFocusDown="@id/saveReadingTrackButton"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

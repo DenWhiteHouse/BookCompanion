@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:paddingLeft="@dimen/padding_large"
-            android:paddingTop="@dimen/padding_medium"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/padding_large"
+            android:paddingTop="@dimen/padding_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,14 +28,14 @@
                     android:id="@+id/AddNewBookFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
-                    android:clickable="true">
-                </android.support.design.widget.FloatingActionButton>
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_chevron_right_white"></android.support.design.widget.FloatingActionButton>
 
-                <TextView style="@style/mainOptionVoices"
+                <TextView
+                    style="@style/mainOptionVoices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_new_book" />
@@ -51,14 +51,14 @@
                     android:id="@+id/AddNewTrackFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
-                    android:clickable="true">
-                </android.support.design.widget.FloatingActionButton>
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_chevron_right_white"></android.support.design.widget.FloatingActionButton>
 
-                <TextView style="@style/mainOptionVoices"
+                <TextView
+                    style="@style/mainOptionVoices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_new_track" />
@@ -74,18 +74,17 @@
                     android:id="@+id/AddNewQuoteFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:src="@drawable/ic_chevron_right_white"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
-                    android:clickable="true">
-                </android.support.design.widget.FloatingActionButton>
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_chevron_right_white"></android.support.design.widget.FloatingActionButton>
 
-                <TextView style="@style/mainOptionVoices"
+                <TextView
+                    style="@style/mainOptionVoices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_new_quote"
-                    />
+                    android:text="@string/add_new_quote" />
             </LinearLayout>
         </LinearLayout>
 
@@ -95,18 +94,16 @@
             android:layout_gravity="center_horizontal"
             android:paddingTop="@dimen/padding_large">
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:layout_gravity="center"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:focusable="true"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/idclient">
-            </com.google.android.gms.ads.AdView>
+                ads:adUnitId="@string/idclient"></com.google.android.gms.ads.AdView>
         </LinearLayout>
 
     </LinearLayout>

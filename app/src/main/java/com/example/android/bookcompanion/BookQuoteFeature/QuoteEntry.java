@@ -3,7 +3,8 @@ package com.example.android.bookcompanion.BookQuoteFeature;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "quote") public class QuoteEntry {
+@Entity(tableName = "quote")
+public class QuoteEntry {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String bookTitle;

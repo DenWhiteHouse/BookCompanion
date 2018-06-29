@@ -10,19 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.android.bookcompanion.data.Book;
-import com.example.android.bookcompanion.database.BookContract;
 import com.example.android.bookcompanion.database.BookContract.BookEntry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MyLibrary extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -49,14 +41,14 @@ public class MyLibrary extends AppCompatActivity implements
                 String author = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_AUTH));
                 String imageUrl = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_IMAGE));
                 String pages = cursor.getString(cursor.getColumnIndex(BookEntry.COL_BOOK_PAGES));
-                int ID= cursor.getInt(cursor.getColumnIndex(BookEntry._ID));
-                Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI,ID);
-                Intent intent = new Intent(MyLibrary.this,MyLibraryBookDetails.class);
+                int ID = cursor.getInt(cursor.getColumnIndex(BookEntry._ID));
+                Uri currentBookUri = ContentUris.withAppendedId(BookEntry.CONTENT_URI, ID);
+                Intent intent = new Intent(MyLibrary.this, MyLibraryBookDetails.class);
                 intent.setData(currentBookUri);
-                intent.putExtra("BOOKTITLE",title);
-                intent.putExtra("IMAGEURL",imageUrl);
-                intent.putExtra("AUTHOR",author);
-                intent.putExtra("PAGES",pages);
+                intent.putExtra("BOOKTITLE", title);
+                intent.putExtra("IMAGEURL", imageUrl);
+                intent.putExtra("AUTHOR", author);
+                intent.putExtra("PAGES", pages);
                 startActivity(intent);
             }
         });
@@ -82,7 +74,7 @@ public class MyLibrary extends AppCompatActivity implements
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
-        if(data.getCount() == 0){
+        if (data.getCount() == 0) {
             // if the are no book in the library, set the EmptyView
             setContentView(R.layout.empty_view);
         }

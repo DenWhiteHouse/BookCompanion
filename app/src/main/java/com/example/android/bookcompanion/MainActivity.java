@@ -1,17 +1,12 @@
 package com.example.android.bookcompanion;
 
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.database.Cursor;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.android.bookcompanion.BookQuoteFeature.AddQuoteActivity;
 import com.example.android.bookcompanion.data.AddBook;
@@ -19,12 +14,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity  {
-    FloatingActionButton mAddBookFAB,mAddTrackFAB,mAddQuoteFAB;
+public class MainActivity extends AppCompatActivity {
     private static final int BOOK_LOADER = 0;
+    FloatingActionButton mAddBookFAB, mAddTrackFAB, mAddQuoteFAB;
     private AdView mAdView;
 
     @Override
@@ -40,24 +34,21 @@ public class MainActivity extends AppCompatActivity  {
         mAdView.loadAd(adRequest);
 
 
-
-
-
-        mAddBookFAB =findViewById(R.id.AddNewBookFAB);
-        mAddTrackFAB =findViewById(R.id.AddNewTrackFAB);
-        mAddQuoteFAB =findViewById(R.id.AddNewQuoteFAB);
+        mAddBookFAB = findViewById(R.id.AddNewBookFAB);
+        mAddTrackFAB = findViewById(R.id.AddNewTrackFAB);
+        mAddQuoteFAB = findViewById(R.id.AddNewQuoteFAB);
 
         mAddBookFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,AddBook.class));
+                startActivity(new Intent(MainActivity.this, AddBook.class));
             }
         });
 
         mAddTrackFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,AddReadingTrack.class));
+                startActivity(new Intent(MainActivity.this, AddReadingTrack.class));
             }
         });
 
@@ -79,13 +70,13 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.my_library:
-                startActivity(new Intent(this,MyLibrary.class));
+                startActivity(new Intent(this, MyLibrary.class));
                 return true;
             case R.id.my_reading_tracks:
-                startActivity(new Intent(this,MyReadingTracks.class));
+                startActivity(new Intent(this, MyReadingTracks.class));
                 return true;
             case R.id.my_quotes:
-                startActivity(new Intent(this,MyQuotes.class));
+                startActivity(new Intent(this, MyQuotes.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

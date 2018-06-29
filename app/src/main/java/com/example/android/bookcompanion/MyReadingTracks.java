@@ -6,18 +6,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.text.Layout;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.android.bookcompanion.room.ReadingTrack;
@@ -26,15 +21,12 @@ import com.example.android.bookcompanion.room.ReadingTrackViewModel;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 public class MyReadingTracks extends AppCompatActivity {
-
-    ReadingTrackDatabase readingTrackDatabase;
-    ReadingTrack mReadingTrack;
 
     // Constant for logging
     private static final String TAG = MainActivity.class.getSimpleName();
+    ReadingTrackDatabase readingTrackDatabase;
+    ReadingTrack mReadingTrack;
     // Member variables for the adapter and RecyclerView
     private RecyclerView mRecyclerView;
     private ReadingTrackAdapter mAdapter;
@@ -89,17 +81,21 @@ public class MyReadingTracks extends AppCompatActivity {
                         t.start();
                         dialog.cancel();
                         Toast.makeText(MyReadingTracks.this, "item Deleted ", Toast.LENGTH_SHORT).show();
-                    };
+                    }
+
+                    ;
                 });
                 builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
                         mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
                         dialog.cancel();
-                    };
+                    }
+
+                    ;
                 });
                 builder.show();
-                        }
+            }
         }).attachToRecyclerView(mRecyclerView);
 
     }

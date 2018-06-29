@@ -18,15 +18,14 @@ import java.util.Locale;
 
 public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapter.ReadingTrackViewHolder> {
 
-    private Context mContext;
-
-    private  List<ReadingTrack> mRTracksList;
     // Constant for date format
     private static final String DATE_FORMAT = "dd/MM/yyyy";
     // Date formatter
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+    private Context mContext;
+    private List<ReadingTrack> mRTracksList;
 
-    public ReadingTrackAdapter(Context context){
+    public ReadingTrackAdapter(Context context) {
         mContext = context;
     }
 
@@ -39,7 +38,7 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
     @Override
     public void onBindViewHolder(final ReadingTrackViewHolder holder, int position) {
         final ReadingTrack readingTrack = mRTracksList.get(position);
-        final Integer listposition= position;
+        final Integer listposition = position;
         holder.mTitle.setText(readingTrack.getBookTitle());
         holder.mLocation.setText(readingTrack.getLocation());
         holder.mDate.setText(String.valueOf(readingTrack.getDate()));
@@ -47,36 +46,15 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
         holder.mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"prova " + holder.mTitle.getText().toString(),Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext,EditReadingTrack.class);
-                intent.putExtra("ID",readingTrack.getUid());
-                intent.putExtra("BOOKTITLE",readingTrack.getBookTitle());
-                intent.putExtra("BOOKLOCATION",readingTrack.getLocation());
-                intent.putExtra("BOOKDATE",readingTrack.getDate());
-                intent.putExtra("BOOKPAGES",String.valueOf(readingTrack.getPagesRead()));
+                Intent intent = new Intent(mContext, EditReadingTrack.class);
+                intent.putExtra("ID", readingTrack.getUid());
+                intent.putExtra("BOOKTITLE", readingTrack.getBookTitle());
+                intent.putExtra("BOOKLOCATION", readingTrack.getLocation());
+                intent.putExtra("BOOKDATE", readingTrack.getDate());
+                intent.putExtra("BOOKPAGES", String.valueOf(readingTrack.getPagesRead()));
                 mContext.startActivity(intent);
             }
         });
-    }
-
-
-    class ReadingTrackViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTitle;
-        private TextView mLocation;
-        private TextView mDate;
-        private TextView mPages;
-        private Button mEditButton;
-
-        public ReadingTrackViewHolder(View itemView) {
-            super(itemView);
-            mTitle = itemView.findViewById(R.id.TitleReadingtrackTV);
-            mLocation = itemView.findViewById(R.id.LocationReadingtrackTV);
-            mDate = itemView.findViewById(R.id.DateReadingTrackTV);
-            mPages = itemView.findViewById(R.id.PagesReadingTrackTV);
-            mEditButton = itemView.findViewById(R.id.editTrackButton);
-        }
-
-
     }
 
     @Override
@@ -98,6 +76,25 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
 
     public List<ReadingTrack> getReadingTracks() {
         return mRTracksList;
+    }
+
+    class ReadingTrackViewHolder extends RecyclerView.ViewHolder {
+        private TextView mTitle;
+        private TextView mLocation;
+        private TextView mDate;
+        private TextView mPages;
+        private Button mEditButton;
+
+        public ReadingTrackViewHolder(View itemView) {
+            super(itemView);
+            mTitle = itemView.findViewById(R.id.TitleReadingtrackTV);
+            mLocation = itemView.findViewById(R.id.LocationReadingtrackTV);
+            mDate = itemView.findViewById(R.id.DateReadingTrackTV);
+            mPages = itemView.findViewById(R.id.PagesReadingTrackTV);
+            mEditButton = itemView.findViewById(R.id.editTrackButton);
+        }
+
+
     }
 
 }

@@ -1,15 +1,30 @@
 package com.example.android.bookcompanion.data;
 
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class VolumeInfo implements Parcelable
-{
+import java.util.List;
 
+public class VolumeInfo implements Parcelable {
+
+    public final static Parcelable.Creator<VolumeInfo> CREATOR = new Creator<VolumeInfo>() {
+
+
+        @SuppressWarnings({
+                "unchecked"
+        })
+        public VolumeInfo createFromParcel(Parcel in) {
+            return new VolumeInfo(in);
+        }
+
+        public VolumeInfo[] newArray(int size) {
+            return (new VolumeInfo[size]);
+        }
+
+    };
     @SerializedName("title")
     @Expose
     private String title;
@@ -67,22 +82,6 @@ public class VolumeInfo implements Parcelable
     @SerializedName("subtitle")
     @Expose
     private String subtitle;
-    public final static Parcelable.Creator<VolumeInfo> CREATOR = new Creator<VolumeInfo>() {
-
-
-        @SuppressWarnings({
-                "unchecked"
-        })
-        public VolumeInfo createFromParcel(Parcel in) {
-            return new VolumeInfo(in);
-        }
-
-        public VolumeInfo[] newArray(int size) {
-            return (new VolumeInfo[size]);
-        }
-
-    }
-            ;
 
     protected VolumeInfo(Parcel in) {
         this.title = ((String) in.readValue((String.class.getClassLoader())));

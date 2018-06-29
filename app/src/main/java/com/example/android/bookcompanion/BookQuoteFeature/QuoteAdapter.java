@@ -2,17 +2,13 @@ package com.example.android.bookcompanion.BookQuoteFeature;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.android.bookcompanion.MyQuotes;
 import com.example.android.bookcompanion.R;
 
 import java.util.List;
@@ -48,8 +44,8 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext,AddQuoteActivity.class);
-                intent.putExtra(EXTRA_QUOTE_ID,quoteEntry.getId());
+                Intent intent = new Intent(mContext, AddQuoteActivity.class);
+                intent.putExtra(EXTRA_QUOTE_ID, quoteEntry.getId());
                 mContext.startActivity(intent);
             }
         });
@@ -77,7 +73,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
     }
 
     // Inner class for creating ViewHolders
-    class QuoteViewHolder extends RecyclerView.ViewHolder{
+    class QuoteViewHolder extends RecyclerView.ViewHolder {
 
         // Class variables for the task description and priority TextViews
         TextView bookTitleQuote;
@@ -95,7 +91,7 @@ public class QuoteAdapter extends RecyclerView.Adapter<QuoteAdapter.QuoteViewHol
 
             bookTitleQuote = itemView.findViewById(R.id.QuoteBookTitle);
             quoteDescription = itemView.findViewById(R.id.quoteContent);
-            editButton =itemView.findViewById(R.id.editQuoteButton);
+            editButton = itemView.findViewById(R.id.editQuoteButton);
         }
 
     }

@@ -2,24 +2,12 @@ package com.example.android.bookcompanion.widget;
 
 
 import android.app.IntentService;
-import android.app.Service;
-import android.appwidget.AppWidgetManager;
-import android.arch.lifecycle.LiveData;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
-import android.widget.RemoteViews;
-
-import com.example.android.bookcompanion.BookQuoteFeature.QuoteDatabase;
-import com.example.android.bookcompanion.BookQuoteFeature.QuoteEntry;
-import com.example.android.bookcompanion.R;
-
-import java.util.List;
 
 public class WidgetService extends IntentService {
-    public static String WIDGETSERVICE = "WIDGETSERVICE";;
+    public static String WIDGETSERVICE = "WIDGETSERVICE";
+    ;
 
     public WidgetService() {
         super("WidgetService");
@@ -48,8 +36,6 @@ public class WidgetService extends IntentService {
         intent.putExtra(WIDGETSERVICE, quoteFromActivity);
         sendBroadcast(intent);
     }
-
-
 
 
 }

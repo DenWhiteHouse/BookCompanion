@@ -30,37 +30,38 @@ import com.example.android.bookcompanion.database.BookContract;
 import com.example.android.bookcompanion.widget.WidgetService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static java.security.AccessController.getContext;
-
 public class AddQuoteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    @BindView(R.id.bookTitle_quotespinner) Spinner bookTitleSpinner;
-    @BindView(R.id.quoteContent) EditText mQuoteContent;
-    @BindView(R.id.saveQuotekButton) Button mSaveQuoteButton;
-    @BindView(R.id.fixedTitleforUpdate) TextView mFixedTitleForUpdateView;
     // intent labels
     public static final String EXTRA_QUOTE_ID = "extraQuoteId";
     // Extra for the task ID to be received after rotation
     public static final String INSTANCE_QUOTE_ID = "instanceQuoteId";
     // Constant for default task id to be used when not in update mode
     private static final int DEFAULT_QUOTE_ID = -1;
-    // Constant for default task id to be used when not in update mode
-    private static  Boolean ON_UPDATEMODE =false;
-    public Boolean mQuotehasChanged = false;
     // Constant for logging
     private static final String TAG = AddQuoteActivity.class.getSimpleName();
+    private static final int BOOK_LOADER = 0;
+    // Constant for default task id to be used when not in update mode
+    private static Boolean ON_UPDATEMODE = false;
+    public Boolean mQuotehasChanged = false;
+    @BindView(R.id.bookTitle_quotespinner)
+    Spinner bookTitleSpinner;
+    @BindView(R.id.quoteContent)
+    EditText mQuoteContent;
+    @BindView(R.id.saveQuotekButton)
+    Button mSaveQuoteButton;
+    @BindView(R.id.fixedTitleforUpdate)
+    TextView mFixedTitleForUpdateView;
+    //Getting the Book Titles
+    BookCursorAdapter mCursorAdapter;
+    Cursor mBookCursor;
+    String[] mBookTitleSpinnerArray;
     private int mQuoteID = DEFAULT_QUOTE_ID;
     // Member variable for the Database
     private QuoteDatabase mDb;
-    //Getting the Book Titles
-    BookCursorAdapter mCursorAdapter;
-    private static final int BOOK_LOADER = 0;
-    Cursor mBookCursor;
-    String[] mBookTitleSpinnerArray;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +100,7 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
         mSaveQuoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkInputFields()) {
+                if (checkInputFields()) {
                     onSaveButtonClicked();
                 }
             }
@@ -115,27 +116,26 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
     public void onSaveButtonClicked() {
         final String quoteContent = mQuoteContent.getText().toString();
         final String quoteTitle;
-        if(!ON_UPDATEMODE){
+        if (!ON_UPDATEMODE) {
             quoteTitle = bookTitleSpinner.getSelectedItem().toString();
-        }
-        else{
+        } else {
             quoteTitle = mFixedTitleForUpdateView.getText().toString();
         }
 
-        final QuoteEntry quote = new QuoteEntry(quoteTitle,quoteContent);
+        final QuoteEntry quote = new QuoteEntry(quoteTitle, quoteContent);
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 if (mQuoteID == DEFAULT_QUOTE_ID) {
-                        mDb.QuoteDao().insertQuote(quote);
-                        updateWidget(getApplicationContext(),quoteTitle +":" +"\n" + quoteContent);
+                    mDb.QuoteDao().insertQuote(quote);
+                    updateWidget(getApplicationContext(), quoteTitle + ":" + "\n" + quoteContent);
                 } else {
-                        quote.setId(mQuoteID);
-                        mDb.QuoteDao().updateQuote(quote);
+                    quote.setId(mQuoteID);
+                    mDb.QuoteDao().updateQuote(quote);
                 }
             }
         });
-        Toast.makeText(getApplicationContext(),R.string.quoteSaved,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.quoteSaved, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -146,7 +146,7 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
         mQuoteContent.setText(quote.getQuoteContent());
         //MAKE INVISIBILE THE SPINNER AND FIX THE TITLE
         bookTitleSpinner.setVisibility(View.GONE);
-        ON_UPDATEMODE=true;
+        ON_UPDATEMODE = true;
         mFixedTitleForUpdateView.setText(quote.getBookTitle());
         mFixedTitleForUpdateView.setVisibility(View.VISIBLE);
         // Add a text Watche to check for changes
@@ -158,7 +158,7 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                mQuotehasChanged=true;
+                mQuotehasChanged = true;
             }
 
             @Override
@@ -191,13 +191,13 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mCursorAdapter.swapCursor(data);
         mBookCursor = mCursorAdapter.getCursor();
-        if(mBookCursor.getCount() == 0){
-            Toast.makeText(getApplicationContext(),R.string.warning_insert_a_book,Toast.LENGTH_LONG).show();
+        if (mBookCursor.getCount() == 0) {
+            Toast.makeText(getApplicationContext(), R.string.warning_insert_a_book, Toast.LENGTH_LONG).show();
             finish();
         }
-        mBookTitleSpinnerArray =  setSpinnerTitleArray();
+        mBookTitleSpinnerArray = setSpinnerTitleArray();
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.support_simple_spinner_dropdown_item,mBookTitleSpinnerArray);
+                this, R.layout.support_simple_spinner_dropdown_item, mBookTitleSpinnerArray);
         stringArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         bookTitleSpinner.setAdapter(stringArrayAdapter);
     }
@@ -207,17 +207,16 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
         mCursorAdapter.swapCursor(null);
     }
 
-    private String[] setSpinnerTitleArray(){
+    private String[] setSpinnerTitleArray() {
         ArrayList<String> mBookTitleArray = new ArrayList<String>();
         mBookTitleArray.add(getResources().getString(R.string.selectTitle_Spinner));
         mBookCursor.moveToFirst();
-        if(mBookCursor.isAfterLast()){
+        if (mBookCursor.isAfterLast()) {
             //The Library is empty and disable saving button
             mBookTitleArray.add(getResources().getString(R.string.selectTitle_Spinner));
             mSaveQuoteButton.setClickable(false);
-        }
-        else {
-            while (!mBookCursor.isAfterLast()){
+        } else {
+            while (!mBookCursor.isAfterLast()) {
                 mBookTitleArray.add(mBookCursor.getString(mBookCursor.getColumnIndex("name")));
                 mBookCursor.moveToNext();
             }
@@ -225,13 +224,13 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
         return mBookTitleArray.toArray(new String[mBookTitleArray.size()]);
     }
 
-    private boolean checkInputFields(){
-        if((bookTitleSpinner.getSelectedItemPosition())==0 && !ON_UPDATEMODE){
-            Toast.makeText(this,R.string.warning_empty_title,Toast.LENGTH_SHORT).show();
+    private boolean checkInputFields() {
+        if ((bookTitleSpinner.getSelectedItemPosition()) == 0 && !ON_UPDATEMODE) {
+            Toast.makeText(this, R.string.warning_empty_title, Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(mQuoteContent.getText().toString().isEmpty()){
-            Toast.makeText(this,R.string.quoteContent_empty,Toast.LENGTH_SHORT).show();
+        if (mQuoteContent.getText().toString().isEmpty()) {
+            Toast.makeText(this, R.string.quoteContent_empty, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -271,7 +270,7 @@ public class AddQuoteActivity extends AppCompatActivity implements LoaderManager
         alertDialog.show();
     }
 
-    public void updateWidget(Context context, String quote){
+    public void updateWidget(Context context, String quote) {
         //Send and Intent to WidgetService
         WidgetService.widgetIntent(context, quote);
     }
