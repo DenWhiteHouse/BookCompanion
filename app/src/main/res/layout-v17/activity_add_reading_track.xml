@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/padding_large"
+        android:paddingTop="@dimen/padding_large">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_readingTrack"
+            android:textSize="@dimen/readin_track_info"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/bookTitle_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusedByDefault="true"
+            android:nextFocusDown="@id/LocationReadingtrackButton" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/LocationReadingtrackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/location_readingTrack"
+                android:nextFocusDown="@id/LocationReadingtrack" />
+
+            <EditText
+                android:id="@+id/LocationReadingtrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/no_location"
+                android:nextFocusDown="@id/DateReadingTrack" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/DateReadingTrack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/date_readingTrack"
+            android:inputType="date"
+            android:nextFocusDown="@id/PagesReadingTrack" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Page_readingTrack"
+                android:textSize="@dimen/read_pages" />
+
+            <EditText
+                android:id="@+id/PagesReadingTrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/Page_readingTrackhint"
+                android:inputType="number"
+                android:nextFocusDown="@id/saveReadingTrackButton"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_medium">
+
+            <Button
+                android:id="@+id/saveReadingTrackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_readingTrack" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

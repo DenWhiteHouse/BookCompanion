@@ -4,8 +4,12 @@
     <string name="add_new_book">Add a new Book</string>
     <string name="add_new_quote">Add a new Quote</string>
     <string name="add_new_track">Add a new Track</string>
+    <string name="book_cover">Book Cover</string>
 
     <string name="add_book_activity_title">Add Book</string>
+    <string name="book_location">Location</string>
+    <string name="book_date">Date</string>
+    <string name="book_pages">Pages</string>
 
     <string name="add_new_book_message">Search a book</string>
     <string name="search_book_hinte">Insert your book title</string>

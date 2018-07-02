@@ -5,7 +5,7 @@ android {
         myconfig {
             keyAlias 'androidks'
             keyPassword 'password'
-            storeFile file('C:/Users/casab/Desktop/Google Developer Nanodegree/BookCompanion/app/release/aks.jks')
+            storeFile file('../app/release/aks.jks')
             storePassword 'password'
         }
     }

@@ -93,8 +93,5 @@ public class ReadingTrackAdapter extends RecyclerView.Adapter<ReadingTrackAdapte
             mPages = itemView.findViewById(R.id.PagesReadingTrackTV);
             mEditButton = itemView.findViewById(R.id.editTrackButton);
         }
-
-
     }
-
 }
